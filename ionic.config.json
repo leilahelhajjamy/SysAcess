@@ -1,0 +1,7 @@
+{
+  "name": "SysAccess",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
