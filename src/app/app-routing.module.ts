@@ -11,6 +11,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'lastactivity',
+    loadChildren: () => import('./lastactivity/lastactivity.module').then( m => m.LastactivityPageModule)
+  },
 ];
 
 @NgModule({
