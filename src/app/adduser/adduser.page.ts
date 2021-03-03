@@ -15,10 +15,12 @@ export class AdduserPage implements OnInit {
   poste : string ;
   carteId : string ;
   autorised : boolean ;
-
+  public checkedState: boolean;
   constructor(public alertController: AlertController, public formBuilder : FormBuilder, public navCtrl: NavController,private authService : AuthService) 
   {
 
+    this.autorised= true;
+    this.checkedState = true;
     this.formUserAdd = this.formBuilder.group({
       nom : new FormControl('', Validators.compose([
           Validators.required
@@ -69,8 +71,6 @@ ajouter(){
   //   this.navCtrl.navigateForward('users');
   
 }
-
-
 
 }
 
