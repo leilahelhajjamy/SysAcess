@@ -54,7 +54,7 @@ export class AdduserPage implements OnInit {
 
 
 
-ajouter(){
+save(){
 
   var userData = {
    nom:this.nom,
@@ -68,6 +68,91 @@ ajouter(){
   
   
 }
+
+
+
+
+
+ajouter(){
+
+  var carteIdSplit:string[]
+  
+    if(this.nom!=null && this.prenom!=null && this.carteId!=null && this.poste!=null ){
+    
+      carteIdSplit=this.carteId.split(" ");
+      if(carteIdSplit.length==4)
+      {
+    
+          if(carteIdSplit[0].length!=2 || carteIdSplit[1].length!=2 || carteIdSplit[2].length!=2 || carteIdSplit[3].length!=2){
+            this.toast();
+            
+          }
+          else{
+                if (/^([A-Z]+)$/.test(carteIdSplit[0])==false || /^([0-9]+)$/.test(carteIdSplit[1])==false || /^([0-9]+)$/.test(carteIdSplit[2])==false || /^([0-9][A-Z]+)$/.test(carteIdSplit[3])==false ){
+                        
+                  
+                  this.toast();
+                  
+                }
+    
+                else{
+                
+                  this.save();
+    
+                }
+    
+    
+    
+              }   
+    
+      }else
+          {
+            this.toast(); 
+          }
+     
+    
+    }
+  
+   
+    else{
+  
+      this.toastChamps();
+  
+      }
+  
+  
+    }
+  
+  
+  async toast(){
+    const toast = await this.toastController.create({
+      message: 'le champs <strong>ID carte</strong> est invalid',
+      position: 'top',
+      color:'warning',
+      duration: 2000
+    });
+    toast.present();
+  
+  }
+  
+  
+  async toastChamps(){
+    const toast = await this.toastController.create({
+      message: 'Veuillez remplir <strong>tous</strong> les champs',
+      position: 'top',
+      color:'warning',
+      duration: 2000
+    });
+    toast.present();
+  
+  }
+  
+  
+  
+
+
+
+
 
 }
 
