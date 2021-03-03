@@ -15,10 +15,25 @@
       border-radius: 15%;
       height:fit-content;
       color:#FFFFFF;
+    }
 
-  
-      }
-  
+    .tabs{
+      display:flex;
+      justify-content: center;
+      margin-bottom: 5%;
+    }
+
+    .buttonTab{
+      justify-content: center;
+      border-radius: 15%;
+      padding: auto;
+      background-color: #d17941;
+      margin: auto;
+      border-style: solid black;
+    }
+
+
+
     p {
       padding: 40px 0 20px 0;
       font-weight: 600;
@@ -54,6 +69,11 @@
       top: 0;
       
     }
+    .my-alert-class .alert-wrapper {
+      --background: rgb(235, 171, 129);
+
+    }
+  
   
     form {
       margin-top: 25%;
@@ -66,6 +86,13 @@
       box-shadow: 0 10px 30px 0px rgba(57, 71, 82, 0.12);
     }
   
+    .wrap-inputUseradd {
+      background-color: rgba(235, 171, 129, 0.7);
+      border-radius: 20px;
+      margin-bottom: 10px;
+      box-shadow: 0 10px 30px 0px rgba(57, 71, 82, 0.12);
+    }
+
     .input {
       display: block;
       width: 100%;
@@ -79,6 +106,7 @@
       padding: 0 20px 0 23px; 
     }
   
+
     .container-form-btn {
       display: flex;
       justify-content: center;
@@ -101,5 +129,43 @@
       box-shadow: 0 10px 30px 0px rgba(57, 71, 82, 0.5);
     }
   
-  
+  .linkUnderlined{
+    text-decoration: underline;
   }
+
+  #btnProceed{
+
+    --ion-color-base: #d17941 !important; 
+  }
+
+  .glassDiv{
+    box-shadow: none;
+    border-radius: 18px;
+    color: #FFFFFF;
+    background-color: rgba(255, 255, 255, .3);  
+    backdrop-filter: blur(8px);
+    margin: auto;
+    margin-bottom: 10%;
+
+  }
+
+  }
+
+  ion-item{
+    --background: rgba(235, 171, 129, 0.7) !important;
+ 
+  }
+
+  ion-label{
+    font-family: Josefin Sans !important;
+    color: grey !important;
+  }
+
+  ion-toggle {
+    --background: #FFF;
+    --background-checked: rgb(235, 171, 129);;
+  
+    --handle-background: rgb(235, 171, 129) !important;
+    --handle-background-checked: rgb(235, 171, 129) ;
+  }
+  

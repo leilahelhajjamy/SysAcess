@@ -1,0 +1,77 @@
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+
+		<ion-title class="ion-text-center custom-font">Ajouter<button class="activityBack" (click)="signOut()">Sign out</button> </ion-title>   
+ 
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content fullscreen="true">
+
+  <svg class="back-blob" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#D17941" d="M25.2,-37.3C35.4,-27.1,48.6,-23.6,57.1,-14.5C65.6,-5.4,69.5,9.2,65,20.5C60.5,31.8,47.6,39.8,35.4,41.2C23.2,42.5,11.6,37.2,-1.9,39.8C-15.3,42.3,-30.6,52.8,-35.5,49C-40.5,45.3,-35,27.5,-31.7,15.5C-28.4,3.6,-27.2,-2.4,-31.1,-16.2C-35.1,-30.1,-44.2,-51.7,-39.8,-63.8C-35.5,-75.9,-17.8,-78.4,-5.2,-71.3C7.4,-64.2,14.9,-47.4,25.2,-37.3Z" transform="translate(100 100)" />
+  </svg>
+ 
+
+  <div >
+
+    <form class="ion-padding"[formGroup]="formUserAdd" >
+  
+      <div class=" glassDiv wrap-inputUseradd">
+      <input class="input" type="text"  formControlName="nom" [(ngModel)]="nom" placeholder="Nom">
+      </div>
+  
+      <div class=" glassDiv wrap-inputUseradd">
+      <input class="input" type="text" formControlName="prenom" [(ngModel)]="prenom" placeholder="Prénom">
+      </div>
+
+      <div class="glassDiv wrap-inputUseradd">
+        <input class="input" type="text" formControlName="carteId" [(ngModel)]="carteId" placeholder="ID Carte">
+      </div>
+
+      <div class="glassDiv wrap-inputUseradd">
+        <input class="input" type="text"  formControlName="poste" [(ngModel)]="poste" placeholder="Poste">
+      </div>
+
+
+      <div class="glassDiv wrap-inputUseradd ">
+      <ion-item class="glassDiv wrap-inputUseradd">
+        <ion-label>Autorisé</ion-label>
+        <ion-toggle checked color="warning" formControlName="autorised" [(ngModel)]="autorised" ></ion-toggle>
+      </ion-item>
+    </div>
+
+      <div class="container-form-btn">
+        
+        <button class="form-btn custom-font" (click)="ajouter()">
+      Ajouter
+        </button>
+      </div>   
+  
+     
+    </form>
+  
+  </div>
+
+
+
+
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+  	<div class="tabs">
+			<ion-button class="buttonTab " fill="solid" color="orange">
+				<ion-icon   name="timer" color="orange"></ion-icon>
+			</ion-button>
+      <ion-button class="buttonTab " fill="solid" color="jaune" >
+				<ion-icon name="archive-outline"></ion-icon>
+			</ion-button>
+      <ion-button class="buttonTab " fill="solid" color="jaune">
+				<ion-icon name="people-outline"></ion-icon>
+			</ion-button>
+		</div>
+  </ion-toolbar>
+</ion-footer>

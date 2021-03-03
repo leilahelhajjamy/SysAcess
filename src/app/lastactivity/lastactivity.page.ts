@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, LoadingController } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { FormGroup, FormBuilder,FormControl, Validators } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-lastactivity',
@@ -10,7 +11,7 @@ import { FormGroup, FormBuilder,FormControl, Validators } from '@angular/forms';
 })
 export class LastactivityPage implements OnInit {
 
-  constructor(public navCtrl: NavController) { }
+  constructor(private authService: AuthService,public navCtrl: NavController) { }
 
   ngOnInit() {
   }
@@ -18,5 +19,20 @@ export class LastactivityPage implements OnInit {
 
   back(){
     this.navCtrl.navigateBack('');
+
   }
+signOut(){
+this.authService.signOut()
+this.navCtrl.navigateRoot('home')
+}
+
+usersPage(){
+  this.navCtrl.navigateForward('users');
+}
+
+historyPage(){
+  //this.navCtrl.navigateForward('');
+
+}
+
 }

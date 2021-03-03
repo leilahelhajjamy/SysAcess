@@ -15,6 +15,14 @@ const routes: Routes = [
     path: 'lastactivity',
     loadChildren: () => import('./lastactivity/lastactivity.module').then( m => m.LastactivityPageModule)
   },
+  {
+    path: 'adduser',
+    loadChildren: () => import('./adduser/adduser.module').then( m => m.AdduserPageModule)
+  },
+  {
+    path: 'users',
+    loadChildren: () => import('./users/users.module').then( m => m.UsersPageModule)
+  },
 ];
 
 @NgModule({
