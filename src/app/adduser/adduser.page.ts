@@ -132,7 +132,6 @@ async ajouter(){
                 else{
                   if(this.validatedNom && this.validatedPrenom && this.validatedPoste){
                     this.save();
-                    this.navCtrl.navigateRoot('users');
                     const toast = await this.toastController.create({
                       message: "Utilisateur créé avec succés",
                       position: 'top',
@@ -140,6 +139,7 @@ async ajouter(){
                       duration: 2000
                     });
                     toast.present();
+                    this.navCtrl.navigateRoot('users');
                   }
                   
                  

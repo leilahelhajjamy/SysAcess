@@ -2,7 +2,14 @@
 
 <ion-header class="ion-no-border">
   <ion-toolbar>
-		<ion-title class="ion-text-center custom-font">Utilisateurs<button class="activityBack" (click)="signOut()">Sign out</button> </ion-title>   
+    <ion-searchbar
+    showcancelbutton=""
+    (change)="filterList($event)"
+    (ionInput)="filterList($event)"
+    (ionClear)="onCancel()"
+    (ionChange)="filterList($event)"
+    animated="true"
+  ></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
@@ -13,23 +20,30 @@
   </svg>
  
   
-    <ion-item *ngFor="let user of Users" class=" glassDivAdd" >
+    <ion-item *ngFor="let user of Users " class=" glassDivAdd" >
       <ion-label>
         <h5 class="userName">
-          <ion-icon name="person"></ion-icon> {{user.prenom}} {{user.nom | uppercase}}
+          <ion-icon name="person"></ion-icon> <strong>{{user.prenom}} {{user.nom | uppercase}}</strong>
         </h5>
         <p>
           <ion-icon name="briefcase"></ion-icon> {{user.poste}}
         </p>
+        <p>
+          <ion-toggle checked color="warning" checked="{{user.autorised}}" ></ion-toggle>
+        </p>
       </ion-label>
-
+      
       <div class="item-note" item-end>
+      <p>
         <button class="buttonIcon" clear [routerLink]="['/edit-appointment/', user.$key]">
           <ion-icon name="create" color='warning' style="zoom:1.75"></ion-icon>
         </button>
+      </p>
+      <p>
         <button class="buttonIcon" clear (click)="deleteBooking(booking.$key)">
           <ion-icon name="trash"  color='warning' style="zoom:1.75"></ion-icon>
         </button>
+      </p>  
       </div>
     </ion-item>
  

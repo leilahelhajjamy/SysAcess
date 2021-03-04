@@ -6,6 +6,12 @@
   ion-toolbar {
     --background: transparent;
   
+    ion-searchbar{
+      --background: transparent;
+      --border-radius: 15px;
+
+    }
+
     ion-title {
       padding: 20px 0 46px 0;
       font-weight: 900;
