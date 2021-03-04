@@ -185,3 +185,24 @@
     --handle-background-checked: rgb(235, 171, 129) ;
   }
   
+
+ion-item{
+  .userName{
+    color: #493838;
+  } 
+}
+
+.buttonIcon{
+  background-color: transparent !important;
+  justify-content: center;
+  border-radius: 15%;
+  padding: auto;
+  margin: auto;
+  border-style: solid black;
+}
+
+ion-footer{
+  ion-toolbar{
+    background-color:rgba(245, 215, 196);
+  }
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertController, NavController, ToastController } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
@@ -62,9 +62,9 @@ export class AdduserPage implements OnInit {
    }
 
   ngOnInit() {
-
+  
   }
-
+ 
 
 
 save(){
