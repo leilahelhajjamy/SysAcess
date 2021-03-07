@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>addactivity</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form class="ion-padding"[formGroup]="formActivityAdd" >
+  
+    <div class=" glassDiv wrap-inputUseradd">
+    <input class="input" type="text"  formControlName="carteId" [(ngModel)]="carteId" placeholder="carteId">
+    </div>
+    <div class=" glassDiv wrap-inputUseradd">
+      <input class="input" type="text"  formControlName="type" [(ngModel)]="type" placeholder="type">
+      </div>
+
+    <div class="container-form-btn">
+      
+      <button class="form-btn custom-font" (click)="save()">
+    Ajouter
+      </button>
+    </div>   
+
+   
+  </form>
+
+</ion-content>

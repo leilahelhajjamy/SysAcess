@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertController, NavController, ToastController } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
-import { AngularFireDatabase, AngularFireObject, AngularFireList, snapshotChanges } from '@angular/fire/database';
 import { Observable } from 'rxjs';
+import { UserService } from '../services/user.service';
 
 
 @Component({
@@ -12,15 +12,13 @@ import { Observable } from 'rxjs';
   styleUrls: ['../app.component.scss'],
 })
 export class AdduserPage implements OnInit {
-  usersRef:  AngularFireList<any>;
-  usersObjectRef: AngularFireObject<any>;
   users: Observable<any>;
   formUserAdd : FormGroup;
   nom : string ;
   prenom : string ;
   poste : string ;
   carteId : string ;
-  public autorised : boolean;
+  public authorised : boolean;
   public checkedState: boolean;
 
 
@@ -34,13 +32,13 @@ export class AdduserPage implements OnInit {
   validatedPrenom : boolean = true;
   validatedPoste : boolean = true;
 
-  constructor(public toastController: ToastController,public db: AngularFireDatabase,public alertController: AlertController, public formBuilder : FormBuilder, public navCtrl: NavController,private authService : AuthService) 
+  constructor(public userService: UserService,public toastController: ToastController,public alertController: AlertController, public formBuilder : FormBuilder, public navCtrl: NavController,private authService : AuthService) 
   {
 
 
  
     // this.users = this.usersRef.valueChanges();
-    this.autorised= true;
+    this.authorised= true;
     this.checkedState = true;
 
     this.formUserAdd = this.formBuilder.group({
@@ -65,26 +63,6 @@ export class AdduserPage implements OnInit {
   
   }
  
-
-
-save(){
-
-  var userData = {
-   nom:this.nom,
-   prenom:this.prenom,
-   poste:this.poste,
-   carteId:this.carteId,
-   autorised:this.autorised
-            
- };
-
-    this.usersRef = this.db.list(`/users/${this.carteId}`);
-    this.usersRef.push(userData);
-    this.usersObjectRef = this.db.object(`/users/${this.carteId}`);
-    this.usersObjectRef.set(userData);
-  
-}
-
 
 
 
@@ -131,7 +109,7 @@ async ajouter(){
     
                 else{
                   if(this.validatedNom && this.validatedPrenom && this.validatedPoste){
-                    this.save();
+                    this.userService.save(this.nom,this.prenom,this.poste,this.carteId,this.authorised);
                     const toast = await this.toastController.create({
                       message: "Utilisateur créé avec succés",
                       position: 'top',

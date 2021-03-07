@@ -23,6 +23,18 @@ const routes: Routes = [
     path: 'users',
     loadChildren: () => import('./users/users.module').then( m => m.UsersPageModule)
   },
+  {
+    path: 'profiluser',
+    loadChildren: () => import('./profiluser/profiluser.module').then( m => m.ProfiluserPageModule)
+  },
+  {
+  path: 'profiluser/:carteId',
+  loadChildren: () => import('./profiluser/profiluser.module').then(m => m.ProfiluserPageModule),
+  },  {
+    path: 'addactivity',
+    loadChildren: () => import('./addactivity/addactivity.module').then( m => m.AddactivityPageModule)
+  }
+
 ];
 
 @NgModule({

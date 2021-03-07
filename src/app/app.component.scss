@@ -5,10 +5,12 @@
   
   ion-toolbar {
     --background: transparent;
-  
+    
     ion-searchbar{
       --background: transparent;
       --border-radius: 15px;
+        max-width: 900px;
+        margin: auto;
 
     }
 
@@ -27,6 +29,8 @@
       display:flex;
       justify-content: center;
       margin-bottom: 5%;
+    
+      
     }
 
     .buttonTab{
@@ -36,6 +40,7 @@
       background-color: #d17941;
       margin: auto;
       border-style: solid black;
+      
     }
 
 
@@ -57,6 +62,7 @@
       left: 0;
       right: 0;
       bottom: 0;
+    
   
     }
   
@@ -70,9 +76,11 @@
     .back-blob {
       z-index: -1;
       width: 600px;
-      position: absolute;
-      left: -50%;
-      top: 0;
+      position: absolute; 
+      left: 0;
+      right: 0;
+      bottom: 0;
+      max-width: 900px;
       
     }
     .my-alert-class .alert-wrapper {
@@ -82,7 +90,7 @@
   
   
     form {
-      margin-top: 25%;
+      margin-top: 7%;
     }
   
     .wrap-input {
@@ -90,13 +98,23 @@
       border-radius: 20px;
       margin-bottom: 26px;
       box-shadow: 0 10px 30px 0px rgba(57, 71, 82, 0.12);
+      max-width: 900px;
     }
   
     .wrap-inputUseradd {
-      background-color: rgba(235, 171, 129, 0.7);
+      background-color: rgba(235, 171, 129, 0.3);
       border-radius: 20px;
       margin-bottom: 10px;
       box-shadow: 0 10px 30px 0px rgba(57, 71, 82, 0.12);
+      max-width: 900px;
+      box-shadow: none;
+   
+      color: #493838; 
+      backdrop-filter: blur(8px);
+      margin: auto;
+      margin-bottom: 3%;
+      max-width: 900px;
+      display: flex;
     }
 
    
@@ -112,6 +130,7 @@
       outline: none;
       height: 46px;
       padding: 0 20px 0 23px; 
+      max-width: 900px;
     }
   
 
@@ -136,14 +155,28 @@
       transition: all 0.4s;
       box-shadow: 0 10px 30px 0px rgba(57, 71, 82, 0.5);
     }
+
+   
   
   .linkUnderlined{
     text-decoration: underline;
+    color : #493838;
   }
+
+  .link{
+    color : #493838;
+    
+  }
+
 
   #btnProceed{
 
     --ion-color-base: #d17941 !important; 
+  }
+
+  #fabDanger{
+
+    --ion-color-base: red !important; 
   }
 
   .glassDiv{
@@ -154,7 +187,10 @@
     backdrop-filter: blur(8px);
     margin: auto;
     margin-bottom: 10%;
+    max-width: 900px;
 
+    display: flex;
+   
   }
 
 
@@ -166,12 +202,36 @@
     backdrop-filter: blur(8px);
     margin: auto;
     margin-bottom: 0%;
+    max-width: 900px;
+    display: flex;
 
   }
 
-
-
+  .transparentDiv{
+    box-shadow: none;
+    border-radius: 18px;
+    color: #493838;
+    background-color: rgba(255, 255, 255, .7);  
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1%;
+    max-width: 700px;
+    
   }
+
+
+  .transparentWrapper{
+
+    background-color: rgb(209, 121, 65) !important;
+    display: flex;
+    justify-content: center;
+    border-radius: 18px;
+    
+ 
+  }
+ 
+
+}
 
   ion-item{
     --background: transparent !important;

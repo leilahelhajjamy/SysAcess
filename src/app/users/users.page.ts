@@ -3,8 +3,8 @@ import { NavController } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertController,ToastController } from '@ionic/angular';
-import { AngularFireDatabase, AngularFireObject, AngularFireList, snapshotChanges } from '@angular/fire/database';
 import { Observable } from 'rxjs';
+import { UserService } from '../services/user.service';
 
 
 
@@ -15,9 +15,8 @@ import { Observable } from 'rxjs';
 })
 export class UsersPage implements OnInit {
 
-  usersListRef: AngularFireList<any>;
   Users = [];
-  constructor(public toastController: ToastController,public db: AngularFireDatabase,public alertController: AlertController, public formBuilder : FormBuilder, public navCtrl: NavController,private authService : AuthService) 
+  constructor(public userService:UserService,public toastController: ToastController,public alertController: AlertController, public formBuilder : FormBuilder, public navCtrl: NavController,private authService : AuthService) 
   {
 
     
@@ -26,7 +25,7 @@ export class UsersPage implements OnInit {
 
   ngOnInit() {
     this.fetchUsers();
-    let usersRes = this.getUsersList();
+    let usersRes = this.userService.getUsersList();
     usersRes.snapshotChanges().subscribe(res => {
       this.Users = [];
       res.forEach(item => {
@@ -40,7 +39,7 @@ export class UsersPage implements OnInit {
   onCancel(){
    
     this.fetchUsers();
-    let usersRes = this.getUsersList();
+    let usersRes = this.userService.getUsersList();
     usersRes.snapshotChanges().subscribe(res => {
       this.Users = [];
       res.forEach(item => {
@@ -52,21 +51,13 @@ export class UsersPage implements OnInit {
 
   }
 
-
-
   onChange(event){
     this.filterList(event)
 
   }
   
-  getUsersList() {
-    this.usersListRef = this.db.list('/users');
-    return this.usersListRef;
-  }
-
-
   fetchUsers() {
-    this.getUsersList().valueChanges().subscribe(res => {
+    this.userService.getUsersList().valueChanges().subscribe(res => {
       console.log(res)
     })
   }
