@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { NavController, ToastController } from '@ionic/angular';
 import { ActivityService } from '../services/activity.service';
 import { UserService } from '../services/user.service';
 
@@ -13,29 +14,83 @@ import { UserService } from '../services/user.service';
 export class ProfiluserPage implements OnInit {
   carteId : string;
   carteID
-  User 
-  activities
-  formUserModify: FormGroup;
+  nom
+  prenom
+  poste
   authorised
-  constructor(public formBuilder : FormBuilder,public activityService : ActivityService,private userService : UserService ,private activatedRoute: ActivatedRoute) {
+  User 
+  activities = []
+  activitiesdata = []
+  timeline
 
-    this.formUserModify = this.formBuilder.group({
+  formNomModify: FormGroup;
+  formPrenomModify: FormGroup;
+  formPosteModify: FormGroup;
+  formCarteIdModify: FormGroup;
+  formAuthorisedModify: FormGroup;
+
+
+
+
+  editNomClicked :boolean = false
+  editPrenomClicked :boolean = false
+  editPosteClicked : boolean =false
+  editCarteIdClicked : boolean =false
+  editAuthorisedClicked : boolean =false
+
+  
+  messagePoste = 'le champs <strong>Poste</strong> doit contenir seulement des lettres'
+  messageCarteId = 'le champs <strong>Carte ID </strong> est invalide'
+  messageNom = 'le champs <strong>Nom</strong> doit contenir seulement des lettres'
+  messagePrenom ='le champs <strong>Prénom</strong> doit contenir seulement des lettres'
+
+
+
+  constructor(public navCtrl: NavController,public toastController: ToastController,public formBuilder : FormBuilder,public activityService : ActivityService,private userService : UserService ,private activatedRoute: ActivatedRoute) {
+
+    this.timeline="globe";
+ 
+    this.formNomModify = this.formBuilder.group({
       nom : new FormControl('', Validators.compose([
           Validators.required
-      ])),
-      prenom : new FormControl('', Validators.compose([
-           Validators.required
-      ])),
-      poste : new FormControl('', Validators.compose([
-        Validators.required
-      ])),
-      carteID  : new FormControl('', Validators.compose([
-        Validators.required
-      ])),
+      ]))
+    });
+
+    this.formPrenomModify = this.formBuilder.group({
+  
+    prenom : new FormControl('', Validators.compose([
+       Validators.required
+    ]))
+ 
+    });
+    this.formPosteModify = this.formBuilder.group({
+  
+    poste : new FormControl('', Validators.compose([
+         Validators.required
+    ]))
+   
+    });
+
+    this.formCarteIdModify = this.formBuilder.group({
+  
+    carteID : new FormControl('', Validators.compose([
+         Validators.required
+    ]))
+   
+    });
+    
+    this.formAuthorisedModify = this.formBuilder.group({
+  
       authorised : new FormControl('', Validators.compose([
-        Validators.required
-   ]))
-});
+           Validators.required
+      ]))
+     
+      });
+
+
+
+
+
 
    }
 
@@ -59,13 +114,217 @@ export class ProfiluserPage implements OnInit {
     })
 
     this.getActivityByUser()
+ 
   }
 
 
 getActivityByUser(){
+
   this.activities=this.activityService.getActivityByUser(this.carteId)
+  
+
 }
 
+
+
+
+
+
+EditNomClicked(){
+  this.editNomClicked = true;
+}
+EditPrenomClicked(){
+  this.editPrenomClicked = true;
+} 
+EditPosteClicked (){
+  this.editPosteClicked = true;
+}
+EditCarteIdClicked() {
+  this.editCarteIdClicked = true;
+}
+EditAuthorisedClicked (){
+  this.editAuthorisedClicked = true;
+}
+
+
+
+
+
+AnnulerEditNomClicked(){
+  this.editNomClicked = false;
+}
+AnnulerEditPrenomClicked(){
+  this.editPrenomClicked = false;
+} 
+AnnulerEditPosteClicked (){
+  this.editPosteClicked = false;
+}
+AnnulerEditCarteIdClicked() {
+  this.editCarteIdClicked = false;
+}
+AnnulerEditAuthorisedClicked (){
+  this.editAuthorisedClicked = false;
+}
+
+
+
+async toast(message){
+  const toast = await this.toastController.create({
+    message: message,
+    position: 'top',
+    color:'warning',
+    duration: 2000
+  });
+  toast.present();
+
+}
+
+
+async toastSuccess(){
+  
+  const toast = await this.toastController.create({
+  message: "Modifié avec succés",
+  position: 'top',
+  color:'success',
+  duration: 2000
+});
+toast.present();
+
+}
+
+
+
+
+
+
+async modifierCarteId(){
+
+if(this.carteID!=null){
+
+  var carteIdSplit=this.carteID.split(" ");
+  if(carteIdSplit.length==4){
+
+    if(carteIdSplit[0].length!=2 || carteIdSplit[1].length!=2 || carteIdSplit[2].length!=2 || carteIdSplit[3].length!=2){
+      this.toast(this.messageCarteId);         
+    }
+    else{
+      if (/^([A-Z]+)$/.test(carteIdSplit[0])==false || /^([0-9]+)$/.test(carteIdSplit[1])==false || /^([0-9]+)$/.test(carteIdSplit[2])==false || /^([0-9][A-Z]+)$/.test(carteIdSplit[3])==false ){
+                        
+                  
+        this.toast(this.messageCarteId);                            
+      }
+      else{
+       this.User.carteId = this.carteID
+       this.userService.modifierCarteId(this.User,this.carteId)
+       this.toastSuccess()
+       this.navCtrl.navigateForward([`/profiluser/${this.carteID}`]);
+       this.AnnulerEditCarteIdClicked()
+      }
+
+    }
+  }
+  else{
+    this.toast(this.messageCarteId);  
+
+  }
+
+} 
+else{
+  this.toast('Veuillez saisir un ID de carte'); 
+
+}
+
+}
+
+
+
+
+async modifierPoste(){
+  if(this.poste!=null ){
+
+    if(/^[a-zA-Z ]*$/.test(this.poste)==false){
+     this.toast(this.messagePoste)
+    }
+    else{
+
+      this.userService.modifierPoste(this.carteId,this.poste)
+      this.toastSuccess()
+      this.AnnulerEditPosteClicked()
+    }
+  }
+  else{
+    
+    this.toast('Veuillez saisir un poste')
+
+  }
+
+}
+async modifierPrenom(){
+  if(this.prenom!=null ){
+
+    if(/^[a-zA-Z ]*$/.test(this.prenom)==false){
+     this.toast(this.messagePrenom)
+    }
+    else{
+      this.userService.modifierPrenom(this.carteId,this.prenom)
+      this.toastSuccess()
+      this.AnnulerEditPrenomClicked()
+    }
+  }
+
+  else{
+
+    this.toast('Veuillez saisir un prénom')
+
+  }
+
+}
+async modifierNom(){
+
+  
+  if(this.nom! ){
+
+    if(/^[a-zA-Z ]*$/.test(this.nom)==false){
+     this.toast(this.messageNom)
+    }
+    else{
+      this.userService.modifierNom(this.carteId,this.nom)
+      this.toastSuccess()
+      this.AnnulerEditNomClicked()
+    }
+  }
+
+  else{
+    
+    this.toast('Veuillez saisir un nom ')
+
+  }
+}
+
+
+async modifierAuthorised(){
+  this.userService.modifierAuthorised(this.carteId,this.authorised)
+  this.AnnulerEditAuthorisedClicked()
+  this.toastSuccess()
+
+}
+
+
+segmentChanged($timeline){
+
+this.getActivityByUser()
+
+}
+
+
+doRefresh(event) {
+  this.getActivityByUser()
+
+  setTimeout(() => {
+    console.log('Async operation has ended');
+    event.target.complete();
+  }, 2000);
+}
 
 
 }

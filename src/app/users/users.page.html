@@ -24,20 +24,20 @@
 
     <ion-item *ngFor="let user of Users " class=" glassDivAdd" >
       <ion-label>
-        <h5 class="userName">
+       <h5 class="userName">
           <ion-icon name="person"></ion-icon> <a class="linkUnderlined" [routerLink]="['/profiluser/', user.carteId]" routerDirection="root"><strong>{{user.prenom}} {{user.nom | uppercase}}</strong></a>
         </h5>
         <p>
           <ion-icon name="briefcase"></ion-icon> {{user.poste}}
         </p>
         <p>
-          <ion-toggle checked color="warning" checked="{{user.autorised}}" ></ion-toggle>
+          <ion-toggle checked color="warning" (ionChange)="modifierAuthorised()" checked="{{user.authorised}}" ></ion-toggle>
         </p>
       </ion-label>
       
       <div class="item-note" item-end>
       <p>
-        <button class="buttonIcon" clear [routerLink]="['/edit-appointment/', user.$key]">
+        <button class="buttonIcon" clear [routerLink]="['/profiluser/', user.carteId]" routerDirection="root">
           <ion-icon name="create" color='warning' style="zoom:1.75"></ion-icon>
         </button>
       </p>

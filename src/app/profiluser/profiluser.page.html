@@ -18,9 +18,9 @@
   
     <div class="transparentDiv ">
   
-    <ion-segment  scrollable [(ngModel)]="timeline" color="warning" (ionChange)="segmentChanged($timeline)" scrollable>
+    <ion-segment  scrollable [(ngModel)]="timeline" color="warning" (ionChange)="segmentChanged($timeline)"  scrollable>
       <ion-segment-button value="globe">
-        <ion-icon name="globe" color="item"></ion-icon> 
+        <ion-icon name="globe"  color="item"></ion-icon> 
         
       </ion-segment-button>
       <ion-segment-button value="trash">
@@ -40,16 +40,24 @@
   
           <div [ngSwitch]="timeline" >
           
+          
             <div *ngSwitchCase="'globe'" class="wellwhite" >
 
-
+              <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+                <ion-refresher-content
+                  pullingIcon="chevron-down-circle-outline"
+                  pullingText="Pull to refresh"
+                  refreshingSpinner="circles"
+                  refreshingText="Refreshing...">
+                </ion-refresher-content>
+              </ion-refresher>
               <div>  
                 
                 <ion-item *ngFor="let activity of activities " class="transparentDiv" >
                   <ion-label>
                   
                     <p>
-                      <ion-icon name="timer"></ion-icon> <a class="link">{{activity.timestamp}}</a>
+                      <ion-icon name="timer"></ion-icon> <a class="link">{{activity.timestamp}}</a> 
                     </p>
 
 
@@ -78,8 +86,8 @@
                   
                  <h2>                                                  
                   <ion-fab vertical="center" horizontal="center" slot="fixed" >
-                  <ion-fab-button (click)="adduserPage()" color="warning" id="fabDanger">
-                    <ion-icon name="trash"></ion-icon>
+                  <ion-fab-button (click)="adduserPage()" color="warning" id="btnProceed">
+                    <ion-icon name="trash" color="light" ></ion-icon>
                   </ion-fab-button>
                 </ion-fab>
                   
@@ -89,48 +97,199 @@
         
                   </div>
   
-                <div *ngSwitchCase="'create'" class="glassDiv">
-                
-                      <form [formGroup]="formUserModify" >
-  
-                        <div class="  wrap-inputUseradd">
-                        <input class="input" type="text"  formControlName="nom" [(ngModel)]="nom" placeholder="{{User.nom}}">
-                        </div>
-                    
-                        <div class="  wrap-inputUseradd">
-                        <input class="input" type="text" formControlName="prenom" [(ngModel)]="prenom" placeholder="{{User.prenom}}">
-                        </div>
-                  
-                        <div class="  wrap-inputUseradd">
-                          <input class="input" type="text" formControlName="carteID" [(ngModel)]="carteID" placeholder="{{User.carteId}}">
-                          </div>
-                    
-                  
-                        <div class=" wrap-inputUseradd">
-                          <input class="input" type="text"  formControlName="poste" [(ngModel)]="poste" placeholder="{{User.poste}}">
-                        </div>
-                  
-                  
-                    
-                        <ion-item class=" wrap-inputUseradd ">
-                          <ion-label>Autorisé</ion-label>
-                          <ion-toggle checked color="warning" formControlName="authorised" [(ngModel)]="authorised" checked="{{authorised}}" ></ion-toggle>
-                        </ion-item>
-                      
-                  
-                        <div class="container-form-btn">
-                          
-                          <button class="form-btn custom-font" (click)="ajouter()">
-                          Confirmer
+                <div *ngSwitchCase="'create'" >
+             
+                   
+                     <ion-item  class="transparentDiv" >
+                      <ion-label>                      
+                        <p>
+                         Nom
+                        </p>  
+                        <h5 class="userName">
+                           <strong>{{User.nom | uppercase}} </strong>
+                        </h5>                  
+                      </ion-label>
+                      <div class="item-note" item-end>
+                        <p>
+                          <button class="buttonIcon" clear (click)="EditNomClicked()">
+                            <ion-icon name="create-outline" color='jaune' style="zoom:1.75"></ion-icon>
                           </button>
-                        </div>   
+                        </p> 
+
+
+                        <form [formGroup]="formNomModify" *ngIf="editNomClicked===true">
+                        <div class="wrap-inputUseradd">
+                          <input class="input" type="text" formControlName="nom" [(ngModel)]="nom" placeholder="Nom">
+                        </div>
+                        <div class="container-form-btn">
+        
+                          <button class="form-btnM custom-font" (click)="modifierNom()">
+                          Enregister
+                          </button>
+                          <button class="form-btnA custom-font" (click)="AnnulerEditNomClicked()">
+                           Annuler
+                            </button>
+                        </div> 
+                      </form>
+
+
+
+
+
+                        </div>
+                      </ion-item>
+                      <ion-item  class="transparentDiv" >
+                        <ion-label>                      
+                          <p>
+                         Prénom
+                          </p>  
+                          <h5 class="userName">
+                           <strong>{{User.prenom}} </strong>
+                          </h5>                   
+                        </ion-label>
+                        <div class="item-note" item-end>
+                          <p>
+                            <button class="buttonIcon" clear (click)="EditPrenomClicked()">
+                              <ion-icon name="create-outline" color='jaune' style="zoom:1.75"></ion-icon>
+                            </button>
+                          </p>
+                          
+                          
+                          <form [formGroup]="formPrenomModify" *ngIf="editPrenomClicked===true">
+                            <div class="wrap-inputUseradd">
+                              <input class="input" type="text" formControlName="prenom" [(ngModel)]="prenom" placeholder="Prénom">
+                            </div>
+                            <div class="container-form-btn">
+            
+                              <button class="form-btnM custom-font" (click)="modifierPrenom()">
+                              Enregister
+                              </button>
+                              <button class="form-btnA custom-font" (click)="AnnulerEditPrenomClicked()">
+                               Annuler
+                                </button>
+                            </div> 
+                          </form>  
+
+
+
+                          </div>
+                        </ion-item>
+                        <ion-item  class="transparentDiv" >
+                          <ion-label>                      
+                            <p>
+                             Poste
+                            </p>  
+                            <h5 class="userName">
+                               <strong>{{User.poste}} </strong>
+                            </h5>                   
+                          </ion-label>
+                          <div class="item-note" item-end>
+                            <p>
+                              <button class="buttonIcon" clear (click)="EditPosteClicked()">
+                                <ion-icon name="create-outline" color='jaune' style="zoom:1.75"></ion-icon>
+                              </button>
+                            </p>  
+                            
+                            <form [formGroup]="formPosteModify" *ngIf="editPosteClicked===true">
+                              <div class="wrap-inputUseradd">
+                                <input class="input" type="text" formControlName="poste" [(ngModel)]="poste" placeholder="Poste">
+                              </div>
+                              <div class="container-form-btn">
+              
+                                <button class="form-btnM custom-font" (click)="modifierPoste()">
+                                Enregister
+                                </button>
+                                <button class="form-btnA custom-font" (click)="AnnulerEditPosteClicked()">
+                                 Annuler
+                                  </button>
+                              </div> 
+                            </form>  
+
+
+
+                            </div>
+                          </ion-item>
+                          <ion-item  class="transparentDiv" >
+                            <ion-label>                      
+                              <p>
+                               Carte ID
+                              </p>  
+                              <h5 class="userName">
+                                 <strong>{{User.carteId}} </strong>
+                              </h5>                 
+                            </ion-label>
+                            <div class="item-note" item-end>
+                              <p>
+                                <button class="buttonIcon" clear (click)="EditCarteIdClicked()">
+                                  <ion-icon name="create-outline" color='jaune' style="zoom:1.75"></ion-icon>
+                                </button>
+                              </p>  
+                              
+                                                     
+                            <form [formGroup]="formCarteIdModify" *ngIf="editCarteIdClicked===true">
+                              <div class="wrap-inputUseradd">
+                                <input class="input" type="text" formControlName="carteID" [(ngModel)]="carteID" placeholder="Carte ID">
+                              </div>
+                              <div class="container-form-btn">
+              
+                                <button type ="submit" class="form-btnM custom-font" (click)="modifierCarteId()">
+                                Enregister
+                                </button>
+                                <button class="form-btnA custom-font" (click)="AnnulerEditCarteIdClicked()">
+                                 Annuler
+                                  </button>
+                              </div> 
+                            </form>  
+ 
+
+                              </div>
+                            </ion-item>
+                            <ion-item  class="transparentDiv" >                                                                                                                    <ion-label>                      
+                                  <p >
+                                   Autorisé
+                                  </p>  
+                                  <h5 *ngIf="User.authorised===true" class="userName">
+                                     <strong>Yes </strong>
+                                  </h5> 
+                                  
+                                  <h5 *ngIf="User.authorised===false" class="userName">
+                                    <strong>No </strong>
+                                 </h5> 
+                                 
+                                 <ion-toggle  color="warning" checked="{{User.authorised}}"   ></ion-toggle>
                     
-                       
-                      </form>                               
-                    </div>        
+
+
+                                </ion-label>
+                                                       
+                              <div class="item-note" item-end>
+                                <p>
+                                  <button class="buttonIcon" (click)="EditAuthorisedClicked()">
+                                    <ion-icon name="create-outline" color='jaune' style="zoom:1.75"></ion-icon>
+                                  </button>
+                                </p> 
+                                     
+                                <form [formGroup]="formAuthorisedModify" *ngIf="editAuthorisedClicked===true">
+                               
+                                    <ion-toggle  color="warning" checked="{{User.authorised}}" formControlName="authorised" [(ngModel)]="authorised" ></ion-toggle>     
+                                  <div class="container-form-btn">
+                  
+                                    <button type ="submit" class="form-btnM custom-font" (click)="modifierAuthorised()">
+                                    Enregister
+                                    </button>
+                                    <button class="form-btnA custom-font" (click)="AnnulerEditAuthorisedClicked()">
+                                     Annuler
+                                      </button>
+                                  </div> 
+                                </form>     
+
+                                </div>
+                      </ion-item>
+
+                    </div>  
+
     </div> 
   
-  
-  
+   
   
   </ion-content>

@@ -6,7 +6,7 @@ class User {
   prenom: string
   poste: string
   carteId: string
-  authorised: string
+  authorised: boolean
 }
 
 @Injectable({
@@ -15,6 +15,14 @@ class User {
 
 export class UserService {
   
+  
+  UserData : User = {
+    nom : '',
+    prenom: '',
+    poste:'',
+    carteId:'',
+    authorised: false,
+  }
   usersListRef: AngularFireList<any>;
   usersObjectRef: AngularFireObject<any>;
   constructor(public db: AngularFireDatabase)  { } 
@@ -29,17 +37,15 @@ export class UserService {
 
   save(nom,prenom,poste,carteId,authorised){
 
-    var userData : User
-      userData.nom=nom;
-      userData.prenom=prenom;
-      userData.poste=poste;
-      userData.carteId=carteId;
-      userData.authorised=authorised;
-  
+      this.UserData.nom =nom
+      this.UserData.prenom =prenom
+      this.UserData.carteId =carteId
+      this.UserData.poste =poste
+      this.UserData.authorised =authorised
       this.usersListRef = this.db.list(`/users/${carteId}`);
-      this.usersListRef.push(userData);
+      this.usersListRef.push(this.UserData);
       this.usersObjectRef = this.db.object(`/users/${carteId}`);
-      this.usersObjectRef.set(userData);
+      this.usersObjectRef.set(this.UserData);
     
   }
  
@@ -49,6 +55,30 @@ export class UserService {
   this.usersListRef=this.db.list(`/users/${ID}`)
   return this.usersListRef;
   }
+
+
+  modifierCarteId(UserData: User, carteId){
+
+    this.db.list(`/users/${carteId}`).remove();
+    this.usersObjectRef = this.db.object(`/users/${UserData.carteId}`);
+    this.usersObjectRef.set(UserData);
+    
+  }
+
+
+  modifierPoste(carteId,poste){
+    this.db.object(`/users/${carteId}/poste`).set(poste)
+  }
+  modifierPrenom(carteId,prenom){
+    this.db.object(`/users/${carteId}/prenom`).set(prenom)
+  }
+  modifierNom(carteId,nom){
+    this.db.object(`/users/${carteId}/nom`).set(nom)
+  }
+  modifierAuthorised(carteId,authorised){
+    this.db.object(`/users/${carteId}/authorised`).set(authorised)
+  }
+
 
 
 

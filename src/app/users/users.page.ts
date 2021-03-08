@@ -5,7 +5,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { AlertController,ToastController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { UserService } from '../services/user.service';
-
+import { ProfiluserPage } from '../profiluser/profiluser.page';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,9 +17,12 @@ import { UserService } from '../services/user.service';
 export class UsersPage implements OnInit {
 
   Users = [];
-  constructor(public userService:UserService,public toastController: ToastController,public alertController: AlertController, public formBuilder : FormBuilder, public navCtrl: NavController,private authService : AuthService) 
+  authorised
+  carteId
+  constructor( public router :Router , public userService:UserService,public toastController: ToastController,public alertController: AlertController, public formBuilder : FormBuilder, public navCtrl: NavController,private authService : AuthService) 
   {
-
+    
+  
     
 
   }
@@ -96,6 +100,28 @@ export class UsersPage implements OnInit {
     });
     
   }
+
+
+
+
+
+  async modifierAuthorised(){
+  
+  }
+
+ 
+async toastSuccess(){
+  
+    const toast = await this.toastController.create({
+    message: "Modifié avec succés",
+    position: 'top',
+    color:'success',
+    duration: 2000
+  });
+  toast.present();
+  
+  }
+  
 
 
 
