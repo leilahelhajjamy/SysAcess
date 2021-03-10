@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { NavController, ToastController } from '@ionic/angular';
+import { AlertController, NavController, ToastController } from '@ionic/angular';
 import { ActivityService } from '../services/activity.service';
 import { UserService } from '../services/user.service';
 
@@ -46,7 +46,7 @@ export class ProfiluserPage implements OnInit {
 
 
 
-  constructor(public navCtrl: NavController,public toastController: ToastController,public formBuilder : FormBuilder,public activityService : ActivityService,private userService : UserService ,private activatedRoute: ActivatedRoute) {
+  constructor(public alertController: AlertController, public navCtrl: NavController,public toastController: ToastController,public formBuilder : FormBuilder,public activityService : ActivityService,private userService : UserService ,private activatedRoute: ActivatedRoute) {
 
     this.timeline="globe";
  
@@ -189,6 +189,36 @@ async toastSuccess(){
   duration: 2000
 });
 toast.present();
+
+}
+
+
+
+async supprimerUser(){
+
+
+  const alert = await this.alertController.create({
+    cssClass: 'my-alert-class',
+    message: '<div class="alert-wrapper"> Etes-vous sûrs de vouloir supprimer cet utilisateur </div>',
+    buttons: [{
+      cssClass: 'my-button-alert',
+      text: 'Ok',
+      handler : () =>{
+        console.log('ok clicked')
+        this.userService.supprimerUser(this.carteId)
+        this.navCtrl.navigateForward([`/users/`]);
+
+      }
+    },
+    {
+      cssClass: 'my-button-alert',
+      text: 'Annuler',
+      role: 'cancel'
+    }
+  
+  ]
+    });
+    await alert.present();
 
 }
 

@@ -80,6 +80,14 @@ export class UserService {
   }
 
 
+  supprimerUser(carteId){
+  this.db.list(`/users/${carteId}`).remove();
+
+ }
+
+
+
+
 
 
 }

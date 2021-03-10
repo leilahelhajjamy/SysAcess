@@ -124,6 +124,37 @@ async toastSuccess(){
   
 
 
+  async supprimerUser(carteId){
+
+
+    const alert = await this.alertController.create({
+      cssClass: 'my-alert-class',
+      message: '<div class="alert-wrapper"> Etes-vous sûrs de vouloir supprimer cet utilisateur </div>',
+      buttons: [{
+        cssClass: 'my-button-alert',
+        text: 'Ok',
+        handler : () =>{
+          console.log('ok clicked')
+          this.userService.supprimerUser(carteId)
+          console.log(carteId)
+  
+        }
+      },
+      {
+        cssClass: 'my-button-alert',
+        text: 'Annuler',
+        role: 'cancel'
+      }
+    
+    ]
+      });
+      await alert.present();
+  
+  }
+
+
+
+
 
 
 }

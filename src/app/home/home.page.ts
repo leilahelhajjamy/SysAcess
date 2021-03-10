@@ -45,6 +45,10 @@ if(this.email!=null){
     buttons: [{
       cssClass: 'my-button-alert',
       text: 'Ok',
+      handler : () =>{
+        console.log('ok clicked')
+      }
+    
     }]
     });
     await alert.present();
@@ -57,6 +61,9 @@ if(this.email!=null){
     buttons: [{
       cssClass: 'my-button-alert',
       text: 'Ok',
+      handler : () =>{
+        console.log('ok clicked')
+      }
     }]
     });
     await alert.present();

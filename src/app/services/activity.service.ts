@@ -45,7 +45,8 @@ getActivityByUser(carteId){
 
     snapshot.forEach(snap=>{
       activities.push({ timestamp : new Date(-1*(snap.val().timestamp)).toString().replace( "GMT+0100" , "" ).replace( "(heure normale d\’Europe centrale)" , "" ).replace( "Z" , "" ).replace("GM +0200 (heure d'été d'Europe centrale)",""),
-      type:snap.val().type
+      type:snap.val().type,
+      
     })
 
     })
@@ -55,8 +56,9 @@ getActivityByUser(carteId){
 }
 
 getAllActivities(){
-  this.activityObjectRef = this.db.object(`/activities/`);
-  this.activityObjectRef;
+
+
+  
 }
 
  
