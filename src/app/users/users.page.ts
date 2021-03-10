@@ -104,11 +104,6 @@ export class UsersPage implements OnInit {
 
 
 
-
-  async modifierAuthorised(){
-  
-  }
-
  
 async toastSuccess(){
   
@@ -154,7 +149,11 @@ async toastSuccess(){
 
 
 
-
+async modifierAuthorised(carteId,authorised){
+    this.userService.modifierAuthorised(carteId,!authorised)
+    this.toastSuccess()
+  
+}
 
 
 }

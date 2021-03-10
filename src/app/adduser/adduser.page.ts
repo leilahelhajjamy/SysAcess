@@ -155,7 +155,14 @@ async ajouter(){
   
 
   
-  
+ 
+usersPage(){
+  this.navCtrl.navigateForward('users');
+}
+
+lastActivityPage(){
+  this.navCtrl.navigateForward('lastactivity');
+} 
   
 
 

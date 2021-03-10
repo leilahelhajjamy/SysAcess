@@ -42,8 +42,24 @@ historyPage(){
 
 
 getAllActivities(){
+  this.activities =this.activityService.getAllActivities()
+  this.activities.forEach(element=>{
+    console.log(element)
+  })
+
 
   
+}
+
+
+
+doRefresh(event) {
+  this.getAllActivities()
+
+  setTimeout(() => {
+    console.log('Async operation has ended');
+    event.target.complete();
+  }, 2000);
 }
 
 }

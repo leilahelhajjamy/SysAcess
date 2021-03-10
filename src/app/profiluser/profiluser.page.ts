@@ -48,7 +48,7 @@ export class ProfiluserPage implements OnInit {
 
   constructor(public alertController: AlertController, public navCtrl: NavController,public toastController: ToastController,public formBuilder : FormBuilder,public activityService : ActivityService,private userService : UserService ,private activatedRoute: ActivatedRoute) {
 
-    this.timeline="globe";
+    
  
     this.formNomModify = this.formBuilder.group({
       nom : new FormControl('', Validators.compose([
@@ -88,10 +88,6 @@ export class ProfiluserPage implements OnInit {
       });
 
 
-
-
-
-
    }
 
   ngOnInit() {
@@ -114,7 +110,8 @@ export class ProfiluserPage implements OnInit {
     })
 
     this.getActivityByUser()
- 
+    this.timeline="create";
+
   }
 
 
@@ -356,5 +353,15 @@ doRefresh(event) {
   }, 2000);
 }
 
+
+
+
+usersPage(){
+  this.navCtrl.navigateForward('users');
+}
+
+lastActivityPage(){
+  this.navCtrl.navigateForward('lastactivity');
+}
 
 }
