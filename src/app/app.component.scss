@@ -250,17 +250,93 @@
     
   }
 
+  .transparent{
+    box-shadow: none;
+    border-radius: 18px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1%;
+    max-width: 700px;   
+  }
+
+  .currentMonth{
+    box-shadow: none;
+    border-radius: 18px;
+    border-color:lightgoldenrodyellow;
+    border-style: solid ;
+    color: #493838;
+    background-color:  #fec5bb;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1%;
+    max-width: 700px;
+    padding-bottom: 5%;
+    padding-top: 5%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .currentYear{
+    box-shadow: none;
+    border-radius: 18px;
+    color: #493838;
+    border-color: lightgoldenrodyellow;
+    border-style: solid ;
+    background-color:  #d8e2dc;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1%;
+    max-width: 700px;
+    padding-bottom: 5%;
+    padding-top: 5%;
+    display: flex;
+    justify-content: center;
+  }
+
+
+
+
+
 
   .transparentWrapper{
 
-    background-color: rgb(209, 121, 65) !important;
+    background-color: #EBAB81 !important;
     display: flex;
     justify-content: center;
     border-radius: 18px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
     
  
   }
  
+
+  .currentMonthHours{
+    font-size: 3em;
+    justify-self: center;
+    color: lightgoldenrodyellow;
+  }
+  .currentYearHours{
+    font-size: 3em;
+    color: lightgoldenrodyellow;
+    justify-self: center;
+  }
+ 
+  .titleStatistics{
+    font-size: 1em;
+    color: rgb(247, 144, 144);
+    justify-self: center;
+    font-style: bold;
+
+  }
+  sub{
+    font-size: 0.4em;
+
+  }
+
+
+
 
 }
 

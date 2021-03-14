@@ -13,10 +13,12 @@
     <div class=" glassDiv wrap-inputUseradd">
       <input class="input" type="text"  formControlName="type" [(ngModel)]="type" placeholder="type">
       </div>
-
+      <div class=" glassDiv wrap-inputUseradd">
+        <input class="input" type="number"  formControlName="timestamp" [(ngModel)]="timestamp" placeholder="timestamp">
+        </div>
     <div class="container-form-btn">
       
-      <button class="form-btn custom-font" (click)="save()">
+      <button class="form-btn custom-font" (click)="saveTimeStamp(timestamp)">
     Ajouter
       </button>
     </div>   

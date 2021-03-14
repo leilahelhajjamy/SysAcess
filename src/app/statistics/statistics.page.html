@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>statistics</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form class="ion-padding"[formGroup]="formStatistics" >
+  
+    <div class=" glassDiv wrap-inputUseradd">
+    <input class="input" type="text"  formControlName="carteId" [(ngModel)]="carteId" placeholder="carteId">
+    </div>
+    <div class=" glassDiv wrap-inputUseradd">
+      <input class="input" type="text"  formControlName="monthStart" [(ngModel)]="monthStart" placeholder="monthStart">
+      </div>
+
+      <div class=" glassDiv wrap-inputUseradd">
+        <input class="input" type="text"  formControlName="monthEnd" [(ngModel)]="monthEnd" placeholder="monthEnd">
+        </div>
+
+
+
+    <div class="container-form-btn">
+      
+      <button class="form-btn custom-font" (click)="getStatisticsByMonth(carteId , monthStart, monthEnd)">
+    Ajouter
+      </button>
+    </div>   
+
+   
+  </form>
+
+
+
+  <form class="ion-padding"[formGroup]="formMonth" >
+  
+  
+    <div class=" glassDiv wrap-inputUseradd">
+      <input class="input" type="text"       placeholder="month">
+      </div>
+
+     
+      <ion-item>
+        <ion-label position="stacked">MMMM YY</ion-label>
+        <ion-datetime displayFormat="MMMM YY" min="2020-01" max={{now}} value="" formControlName="month" [(ngModel)]="month" ></ion-datetime>
+      </ion-item>
+
+
+
+    <div class="container-form-btn">
+      
+      <button class="form-btn custom-font" (click)="getMonth(month)">
+    Ajouter
+      </button>
+    </div>   
+
+   
+  </form>
+
+
+
+
+  
+  <form class="ion-padding"[formGroup]="formYear" >
+  
+  
+    <div class=" glassDiv wrap-inputUseradd">
+      <input class="input" type="text"  formControlName="year" [(ngModel)]="year" placeholder="year">
+      </div>
+
+
+    <div class="container-form-btn">
+      
+      <button class="form-btn custom-font" (click)="getYear(year)">
+    Ajouter
+      </button>
+    </div>   
+
+   
+  </form>
+
+
+
+</ion-content>

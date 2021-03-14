@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { timeStamp } from 'node:console';
 import { ActivityService } from '../services/activity.service';
 
 @Component({
@@ -18,6 +19,7 @@ export class AddactivityPage implements OnInit {
 
       carteId : new FormControl('', Validators.required),
       type : new FormControl('', Validators.required),
+      timestamp :new FormControl('', Validators.required), 
     
     });
 
@@ -31,5 +33,12 @@ export class AddactivityPage implements OnInit {
 
     this.activityService.save(this.carteId,this.now,this.type)
   }
+
+
+  saveTimeStamp(timestamp){
+    this.activityService.saveTimeStamp(this.carteId,timestamp,this.type)
+
+  }
+
 
 }

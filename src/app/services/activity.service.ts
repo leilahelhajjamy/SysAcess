@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireObject, AngularFireList, snapshotChanges } from '@angular/fire/database';
-import { NOMEM } from 'node:dns';
 
 
 class Activity {
@@ -9,11 +8,28 @@ class Activity {
   
 }
 
+class ActivityT {
+  timestamp:number
+  type:string
+  
+}
+
+class ActivityData{
+  timestamp:number
+  type:string
+  carteId : string
+  
+} 
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class ActivityService {
 
+  NumberOfHoursCurrentMonth
+  NumberOfHours
+  NumberOfHoursCurrentYear
   nom 
   prenom 
   activityListRef: AngularFireList<any>;
@@ -36,13 +52,26 @@ export class ActivityService {
     this.activityObjectRef.set(activityData);
     this.activityObjectRef = this.db.object(`/lastactivities/${activityData.timestamp}`);
     this.activityObjectRef.set(lastactivityData);
+ 
+}
 
 
-  
+
+saveTimeStamp(carteId,timestamp,type){
+
+  var activityData : ActivityT = {timestamp:timestamp,type:type}
+  var lastactivityData: ActivityData = {timestamp:timestamp,type:type,carteId : carteId}
+  var TimeStamp = lastactivityData.timestamp.toString()
+  this.activityObjectRef = this.db.object(`/activities/${carteId}/${TimeStamp}`);
+  this.activityObjectRef.set(activityData);
+  this.activityObjectRef = this.db.object(`/lastactivities/${TimeStamp}`);
+  this.activityObjectRef.set(lastactivityData);
+
 }
 
 
 getActivityByUser(carteId){
+
 
 var activities 
 activities=[]
@@ -90,6 +119,239 @@ return activities
 
   
 }
+
+
+
+
+getStatisticsByMonth(carteId,monthStart,monthEnd){
+  var  activities =[{
+     timestamp : null,
+     type : ''
+   }]
+   var activitiesDif
+ 
+   var sigmaIn = 0
+   var sigmaOut = 0
+
+   
+    this.db.object(`/activities/${carteId}/`).query.orderByKey().startAfter(monthStart).endBefore(monthEnd).on('value',snapshot=>{
+   
+     snapshot.forEach(snap=>{ 
+       activities.push({ timestamp : snap.val().timestamp,
+       type:snap.val().type,
+       
+     })
+     })
+
+     if (activities[0].type == 'IN'){
+       activities.shift()
+       if(activities[activities.length].type=='OUT')
+       {
+         activities.pop()
+       }
+     
+       activities.forEach(element => {
+         if(element.type=='IN'){
+           sigmaIn += element.timestamp
+          
+         } 
+         else {
+           sigmaOut += element.timestamp
+           
+         } 
+       });
+     
+     activitiesDif = sigmaIn - sigmaOut
+     
+
+     this.NumberOfHours = Math.floor(activitiesDif / (3.6 * 1000000))
+     console.log(this.NumberOfHours)
+     return this.NumberOfHours
+     
+     }     
+    else  {
+       
+       activities.forEach(element => {
+         if(element.type=='IN'){
+           sigmaIn += element.timestamp
+        
+         } 
+         else if(element.type=='OUT'){
+           sigmaOut += element.timestamp
+       
+         } 
+       });
+     
+     activitiesDif = sigmaIn - sigmaOut 
+    this.NumberOfHours = Math.floor(activitiesDif / (3.6 * 1000000))
+
+     }
+ 
+   }) 
+   console.log("numberOfHours",this.NumberOfHours) 
+   return this.NumberOfHours
+}
+
+
+
+
+
+
+getStatisticsCurrentYear(carteId,yearStart){
+  var  activities =[{
+    timestamp : null,
+    type : ''
+  }]
+  var activitiesDif
+  var sigmaIn = 0
+  var sigmaOut = 0
+
+  console.log('start fetching')
+   this.db.object(`/activities/${carteId}/`).query.orderByKey().startAfter(yearStart).on('value',snapshot=>{
+  
+    snapshot.forEach(snap=>{
+    
+      activities.push({ timestamp : snap.val().timestamp,
+      type:snap.val().type,
+      
+    })
+    })
+
+    if (activities[0].type == 'IN'){
+      activities.shift()
+      if(activities[activities.length].type=='OUT')
+      {
+        activities.pop()
+      }
+    
+      activities.forEach(element => {
+        if(element.type=='IN'){
+          sigmaIn += element.timestamp
+        
+        } 
+        else {
+          sigmaOut += element.timestamp
+     
+        } 
+      });
+    
+    activitiesDif = sigmaIn - sigmaOut
+    
+   
+    this.NumberOfHoursCurrentYear = Math.floor(activitiesDif / (3.6 * 1000000))
+  
+    return this.NumberOfHoursCurrentYear
+    
+    }     
+   else  {
+      
+      activities.forEach(element => {
+        if(element.type=='IN'){
+          sigmaIn += element.timestamp
+        
+        } 
+        else if(element.type=='OUT'){
+          sigmaOut += element.timestamp
+        
+        } 
+      });
+    
+    activitiesDif = sigmaIn - sigmaOut  
+
+   this.NumberOfHoursCurrentYear = Math.floor(activitiesDif / (3.6 * 1000000))
+ 
+    return this.NumberOfHoursCurrentYear
+    
+    }
+
+  })    
+  return this.NumberOfHoursCurrentYear
+
+}
+
+
+
+
+getStatisticsCurrentMonth(carteId,month){
+  
+  var  activities =[{
+    timestamp : null,
+    type : ''
+  }]
+  var activitiesDif
+
+  var sigmaIn = 0
+  var sigmaOut = 0
+
+  console.log('start fetching')
+   this.db.object(`/activities/${carteId}/`).query.orderByKey().startAfter(month).on('value',snapshot=>{
+  
+    snapshot.forEach(snap=>{
+    
+      activities.push({ timestamp : snap.val().timestamp,
+      type:snap.val().type,
+      
+    })
+    })
+
+    if (activities[0].type == 'IN'){
+      activities.shift()
+      if(activities[activities.length].type=='OUT')
+      {
+        activities.pop()
+      }
+    
+      activities.forEach(element => {
+        if(element.type=='IN'){
+          sigmaIn += element.timestamp
+         
+        } 
+        else {
+          sigmaOut += element.timestamp
+         
+        } 
+      });
+    
+    activitiesDif = sigmaIn - sigmaOut
+    
+ 
+    this.NumberOfHoursCurrentMonth = Math.floor(activitiesDif / (3.6 * 1000000))
+   
+    return this.NumberOfHoursCurrentMonth
+    
+    }     
+   else  {
+      
+      activities.forEach(element => {
+        if(element.type=='IN'){
+          sigmaIn += element.timestamp
+         
+        } 
+        else if(element.type=='OUT'){
+          sigmaOut += element.timestamp
+         
+        } 
+      });
+    
+    activitiesDif = sigmaIn - sigmaOut
+    
+    
+   this.NumberOfHoursCurrentMonth = Math.floor(activitiesDif / (3.6 * 1000000))
+  
+    return this.NumberOfHoursCurrentMonth
+    
+    }
+
+  }) 
+  
+  return this.NumberOfHoursCurrentMonth
+}
+
+
+
+
+
+
 
  
 }

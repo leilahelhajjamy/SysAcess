@@ -8,30 +8,40 @@
 
   <br>
   
-  <div class="transparentDiv ">
+ 
     <div class="transparentWrapper ">     
-      <h5 class="profileName"> {{User.prenom}} {{User.nom | uppercase}}</h5>
+      <h5 class="profileName ion-text-center custom-font"> {{User.prenom}} {{User.nom | uppercase}}</h5>
     </div> 
 
-  </div>
+
 
 
   
-    <div class="transparentDiv ">
+    <div class="transparent">
   
     <ion-segment  scrollable [(ngModel)]="timeline" color="warning" (ionChange)="segmentChanged($timeline)"  scrollable>
       <ion-segment-button value="globe">
+       
         <ion-icon name="globe"  color="item"></ion-icon> 
+     
+      </ion-segment-button>
+
+      <ion-segment-button value="statistics">
+        <ion-icon name="stats-chart" color="item" ></ion-icon>
         
       </ion-segment-button>
-      <ion-segment-button value="trash">
-        <ion-icon name="trash" color="item"></ion-icon> 
-        
-      </ion-segment-button>
+
+
       <ion-segment-button value="create">
         <ion-icon name="create" color="item"></ion-icon>
         
       </ion-segment-button>
+
+      <ion-segment-button value="trash">
+        <ion-icon name="trash" color="item"></ion-icon> 
+        
+      </ion-segment-button>
+
       
     </ion-segment>
   </div> 
@@ -97,7 +107,59 @@
                     </div>
         
                   </div>
-  
+
+                  
+
+                  <div *ngSwitchCase="'statistics'"  >
+                    <div class="transparent">
+                    <ion-grid>
+
+                      <ion-row>
+                        <ion-col >
+                         
+                          <div class="currentMonth">
+                            <h2 class="titleStatistics">Ce mois</h2>
+                            <h5 class="currentMonthHours">{{NumberOfHoursMonth}}<SUB>heures</SUB></h5>
+                              
+                          </div>
+                        </ion-col>
+                      
+                        <ion-col >
+                         
+                          <div class="currentYear">
+                            <h2 class="titleStatistics">Cette année</h2>
+                            <h5 class="currentYearHours">{{NumberOfHoursYear}}<SUB>heures</SUB></h5>
+                            
+                            
+                          </div>
+                        </ion-col>
+                      </ion-row>
+
+                    </ion-grid>
+                  </div> 
+
+                    <form class="ion-padding"[formGroup]="formMonth" >                                                                     
+                        <ion-item class="transparentDiv">
+                          <ion-label position="stacked">Sélectionner un mois</ion-label>
+                          <ion-datetime  [pickerOptions]="customPickerOptions" doneText="Confirmer" cancelText="Annuler" displayFormat="MMMM YYYY" min="2020-01" max={{now}} value="" formControlName="month" [(ngModel)]="month" ></ion-datetime>
+                        </ion-item>
+
+                      <div class="container-form-btn">
+                        
+                        <button class="form-btn custom-font" (click)="getMonth(month)">
+                        Nombre d'heures
+                        </button>
+                      </div>                       
+                    </form>
+                  
+          
+                    </div>
+
+
+
+
+
+
                 <div *ngSwitchCase="'create'" >
              
                    

@@ -33,6 +33,10 @@ const routes: Routes = [
   },  {
     path: 'addactivity',
     loadChildren: () => import('./addactivity/addactivity.module').then( m => m.AddactivityPageModule)
+  },
+  {
+    path: 'statistics',
+    loadChildren: () => import('./statistics/statistics.module').then( m => m.StatisticsPageModule)
   }
 
 ];

@@ -22,7 +22,18 @@ export class ProfiluserPage implements OnInit {
   activities = []
   activitiesdata = []
   timeline
+  diff
 
+  CurrentMonthClicked = false 
+
+  nowYear = new Date().getFullYear()
+  nowMonth = new Date().getMonth() +1
+  now
+  customPickerOptions: any;
+  NumberOfHours
+  NumberOfHoursYear
+  NumberOfHoursMonth
+  formMonth : FormGroup;
   formNomModify: FormGroup;
   formPrenomModify: FormGroup;
   formPosteModify: FormGroup;
@@ -87,6 +98,23 @@ export class ProfiluserPage implements OnInit {
      
       });
 
+      this.formMonth = this.formBuilder.group({
+
+        month : new FormControl('', Validators.required),
+        
+      });
+
+      this.customPickerOptions = {
+        cssClass :"MyDatePicker"
+      }
+
+      if(this.nowMonth<10){
+        this.now = this.nowYear.toString() +"-0"+this.nowMonth.toString()+"-01"
+      }else{
+        this.now = this.nowYear.toString() +"-"+this.nowMonth.toString()+"-01"
+      }
+
+      this.getCurrentYear()
 
    }
 
@@ -340,6 +368,8 @@ async modifierAuthorised(){
 segmentChanged($timeline){
 
 this.getActivityByUser()
+this.getCurrentYear()
+this.getCurrentMonth()
 
 }
 
@@ -355,6 +385,75 @@ doRefresh(event) {
 
 
 
+getMonth(month){
+  var MonthAfter
+  var MonthActuel
+  var Month 
+  var monthSplit
+  var MonthArgument
+  var MonthAfterArgument
+    monthSplit=month.split('-')
+    MonthActuel = parseInt(monthSplit[1]) 
+    Month = monthSplit[0]+'-'+monthSplit[1]+'-01T00:00:00.000+01:00'
+    Month = Date.parse(Month) 
+  if(MonthActuel < 12){
+    MonthAfter = parseInt(monthSplit[1]) + 1
+    if(MonthAfter<10){
+      MonthAfter= "0"+MonthAfter.toString()
+      MonthAfter = monthSplit[0]+'-'+MonthAfter+'-01T00:00:00.000+01:00'
+      MonthAfter = Date.parse(MonthAfter)
+   
+    }
+  }
+  
+  else if (MonthActuel == 12){
+    MonthAfter = parseInt(monthSplit[1]) 
+    if(MonthAfter<10){
+      MonthAfter= "0"+MonthAfter.toString() 
+      MonthAfter = monthSplit[0]+'-'+MonthAfter+'-31T23:59:59.000+01:00'
+    
+      MonthAfter = Date.parse(MonthAfter)
+    }
+   
+  }
+  
+  MonthArgument =(-1 * Month).toString()
+  MonthAfterArgument = (-1 * MonthAfter).toString()
+  this.CurrentMonthClicked =true
+  this.NumberOfHours=this.getStatisticsByMonth(this.carteId,MonthArgument,MonthAfterArgument)
+  
+  
+  
+  }
+  
+
+
+  getStatisticsByMonth(carteId,monthStart,monthEnd){
+    this.activityService.getStatisticsByMonth(carteId,monthStart,monthEnd)    
+   }
+   
+
+   getCurrentYear(){
+     
+    var year = (-1)*Date.parse(this.nowYear.toString())
+    var yearString = year.toString()
+    this.NumberOfHoursYear = this.activityService.getStatisticsCurrentYear(this.carteId,yearString)
+  
+
+   }
+
+
+   getCurrentMonth(){
+     
+    var month = (-1)*Date.parse(this.now)
+    var monthString = month.toString()
+    this.NumberOfHoursMonth = this.activityService.getStatisticsCurrentMonth(this.carteId,monthString)
+   
+
+   }
+
+
+
 
 usersPage(){
   this.navCtrl.navigateForward('users');
@@ -363,5 +462,21 @@ usersPage(){
 lastActivityPage(){
   this.navCtrl.navigateForward('lastactivity');
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
