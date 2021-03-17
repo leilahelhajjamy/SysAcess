@@ -85,6 +85,7 @@ activities=[]
 
   })
 })
+
 return activities
 
 }
@@ -122,18 +123,48 @@ return activities
 
 
 
+getAllActivitiesAujourdhui(now,before){
+console.log("now",now)
+console.log("before",before)
+  var activities 
+  activities=[]
+ 
+
+   this.db.object(`/lastactivities/`).query.orderByChild('timestamp').startAt(now).endAt(before).on('value',snapshot=>{
+  
+    snapshot.forEach( snap=>{
+      activities.push({ timestamp : new Date(-1*(snap.val().timestamp)).toString().replace( "GMT+0100" , "" ).replace( "(heure normale d\’Europe centrale)" , "" ).replace( "Z" , "" ).replace("GM +0200 (heure d'été d'Europe centrale)",""),
+      type:snap.val().type,
+      carteId : snap.val().carteId ,
+      nom : this.nom,
+      prenom : this.prenom ,
+      poste : ''
+      })
+      activities.map(element =>{
+        this.db.object(`/users/${element.carteId}`).snapshotChanges().subscribe(res=>{
+          element.nom = res.payload.child('nom').val()
+          element.prenom = res.payload.child('prenom').val() 
+          element.poste = res.payload.child('poste').val() 
+        })
+      })
+   
+    })
+  })
+  console.log(activities)
+  return activities
+ 
+}
+
 
 getStatisticsByMonth(carteId,monthStart,monthEnd){
   var  activities =[{
      timestamp : null,
      type : ''
    }]
-   var activitiesDif
- 
+   var activitiesDif 
    var sigmaIn = 0
    var sigmaOut = 0
 
-   
     this.db.object(`/activities/${carteId}/`).query.orderByKey().startAfter(monthStart).endBefore(monthEnd).on('value',snapshot=>{
    
      snapshot.forEach(snap=>{ 
@@ -168,7 +199,8 @@ getStatisticsByMonth(carteId,monthStart,monthEnd){
      console.log(this.NumberOfHours)
      return this.NumberOfHours
      
-     }     
+     }  
+
     else  {
        
        activities.forEach(element => {
@@ -184,15 +216,14 @@ getStatisticsByMonth(carteId,monthStart,monthEnd){
      
      activitiesDif = sigmaIn - sigmaOut 
     this.NumberOfHours = Math.floor(activitiesDif / (3.6 * 1000000))
-
+    return this.NumberOfHours
      }
  
    }) 
-   console.log("numberOfHours",this.NumberOfHours) 
+ 
    return this.NumberOfHours
+
 }
-
-
 
 
 
@@ -210,63 +241,62 @@ getStatisticsCurrentYear(carteId,yearStart){
    this.db.object(`/activities/${carteId}/`).query.orderByKey().startAfter(yearStart).on('value',snapshot=>{
   
     snapshot.forEach(snap=>{
-    
+      console.log(snap.val().type)
       activities.push({ timestamp : snap.val().timestamp,
       type:snap.val().type,
-      
-    })
-    })
-
-    if (activities[0].type == 'IN'){
-      activities.shift()
-      if(activities[activities.length].type=='OUT')
-      {
-        activities.pop()
-      }
-    
-      activities.forEach(element => {
-        if(element.type=='IN'){
-          sigmaIn += element.timestamp
-        
-        } 
-        else {
-          sigmaOut += element.timestamp
      
-        } 
-      });
+    })
+    })  
     
-    activitiesDif = sigmaIn - sigmaOut
-    
-   
-    this.NumberOfHoursCurrentYear = Math.floor(activitiesDif / (3.6 * 1000000))
-  
-    return this.NumberOfHoursCurrentYear
-    
-    }     
-   else  {
-      
-      activities.forEach(element => {
-        if(element.type=='IN'){
-          sigmaIn += element.timestamp
-        
-        } 
-        else if(element.type=='OUT'){
-          sigmaOut += element.timestamp
-        
-        } 
-      });
-    
-    activitiesDif = sigmaIn - sigmaOut  
-
-   this.NumberOfHoursCurrentYear = Math.floor(activitiesDif / (3.6 * 1000000))
- 
-    return this.NumberOfHoursCurrentYear
-    
+  if (activities[0].type == 'IN'){
+    activities.shift()
+    if(activities[activities.length].type=='OUT')
+    {
+      activities.pop()
     }
+  
+    activities.forEach(element => {
+      if(element.type=='IN'){
+        sigmaIn += element.timestamp
+      
+      } 
+      else {
+        sigmaOut += element.timestamp
+   
+      } 
+    });
+  
+  activitiesDif = sigmaIn - sigmaOut
+  
+ 
+  this.NumberOfHoursCurrentYear = Math.floor(activitiesDif / (3.6 * 1000000))
 
-  })    
   return this.NumberOfHoursCurrentYear
+  
+  }     
+ else  {
+    
+    activities.forEach(element => {
+      if(element.type=='IN'){
+        sigmaIn += element.timestamp
+      
+      } 
+      else if(element.type=='OUT'){
+        sigmaOut += element.timestamp
+      
+      } 
+    });
+  
+  activitiesDif = sigmaIn - sigmaOut  
 
+ this.NumberOfHoursCurrentYear = Math.floor(activitiesDif / (3.6 * 1000000))
+ 
+  return this.NumberOfHoursCurrentYear
+  
+  }
+
+  }) 
+  return this.NumberOfHoursCurrentYear
 }
 
 
@@ -292,6 +322,8 @@ getStatisticsCurrentMonth(carteId,month){
       type:snap.val().type,
       
     })
+
+    
     })
 
     if (activities[0].type == 'IN'){
@@ -343,8 +375,46 @@ getStatisticsCurrentMonth(carteId,month){
     }
 
   }) 
-  
+ 
   return this.NumberOfHoursCurrentMonth
+}
+
+
+
+
+
+
+
+getActivitiesCurrentMonth(month){
+  
+  var activities 
+  activities=[]
+  var activitiesReverse 
+
+  console.log('start fetching')
+   this.db.object(`/lastactivities/`).query.orderByKey().startAt(month).on('value',snapshot=>{
+  
+    snapshot.forEach( snap=>{
+      activities.push({ timestamp : new Date(-1*(snap.val().timestamp)).toString().replace( "GMT+0100" , "" ).replace( "(heure normale d\’Europe centrale)" , "" ).replace( "Z" , "" ).replace("GM +0200 (heure d'été d'Europe centrale)",""),
+      type:snap.val().type,
+      carteId : snap.val().carteId ,
+      nom : this.nom,
+      prenom : this.prenom ,
+      poste : ''
+      })
+      activities.map(element =>{
+        this.db.object(`/users/${element.carteId}`).snapshotChanges().subscribe(res=>{
+          element.nom = res.payload.child('nom').val()
+          element.prenom = res.payload.child('prenom').val() 
+          element.poste = res.payload.child('poste').val() 
+        })
+      })
+   
+    })
+  }) 
+
+  return activities
+
 }
 
 

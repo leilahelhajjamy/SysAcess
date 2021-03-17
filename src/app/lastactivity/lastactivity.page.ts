@@ -12,13 +12,30 @@ import { ActivityService } from '../services/activity.service';
 })
 export class LastactivityPage implements OnInit {
 
-  activities =[]
+  activities 
+  activitiesAjourdhui 
+  timeline
+  now = -1 * new Date().getTime();
+  nowYear = new Date().getFullYear()
+  nowMonth = new Date().getMonth() +1
+  nowForMonth
+
   constructor(private activityService : ActivityService,private authService: AuthService,public navCtrl: NavController)
   {
-    this.getAllActivities()
+ 
+    console.log(this.now)
+    if(this.nowMonth<10){
+      this.nowForMonth = this.nowYear.toString() +"-0"+this.nowMonth.toString()+"-01"
+    }else{
+      this.nowForMonth = this.nowYear.toString() +"-"+this.nowMonth.toString()+"-01"
+    }
+    
+
   }
 
   ngOnInit() {
+    this.timeline="globe" 
+    this.getAllActivitiesAujourdhui()
   }
 
 
@@ -42,24 +59,58 @@ historyPage(){
 
 
 getAllActivities(){
-  this.activities =this.activityService.getAllActivities()
-  this.activities.forEach(element=>{
-    console.log(element)
-  })
-
-
+    this.activities = this.activityService.getAllActivities()
   
 }
 
+getAllActivitiesAujourdhui(){
+  var before = this.now + (8.64*10000000)
+  this.activitiesAjourdhui = this.activityService.getAllActivitiesAujourdhui(this.now,before)
+
+}
 
 
 doRefresh(event) {
-  this.getAllActivities()
+  this.getActivitiesCurrentMonth()
 
   setTimeout(() => {
     console.log('Async operation has ended');
     event.target.complete();
   }, 2000);
 }
+
+
+
+
+segmentChanged(timeline){
+
+  if(timeline=="globe"){
+  
+  console.log("segment changed globe")
+   setTimeout(() => {
+    this.getAllActivitiesAujourdhui()
+    }, 4000);
+  
+  }
+  else if (timeline ="moi"){
+    setTimeout(() => {
+      
+      this.getActivitiesCurrentMonth()
+       }, 4000);
+  
+  }
+  
+  }
+
+
+
+  getActivitiesCurrentMonth(){
+     
+    var month = (-1)*Date.parse(this.nowForMonth)
+    var monthString = month.toString()
+    this.activities = this.activityService.getActivitiesCurrentMonth(monthString)
+
+   }
+
 
 }

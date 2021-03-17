@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController, NavController, ToastController } from '@ionic/angular';
 import { ActivityService } from '../services/activity.service';
 import { UserService } from '../services/user.service';
-
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-profiluser',
@@ -12,6 +12,18 @@ import { UserService } from '../services/user.service';
   styleUrls: ['../app.component.scss'],
 })
 export class ProfiluserPage implements OnInit {
+
+  @ViewChild('barChart', {static: true}) barChart;
+  barsCurrent: any;
+  statisticsYear = []
+  loading = true 
+  colorArray = [ "#f4acb7","#ffb5a7","#e6b8a2","#f2c6de","#e56b6f","#fec89a","#9a8c98","#ff99ac","#f4acb7","#ffb5a7","#e6b8a2","#f2c6de"]
+  months
+
+
+
+
+
   carteId : string;
   carteID
   nom
@@ -19,7 +31,8 @@ export class ProfiluserPage implements OnInit {
   poste
   authorised
   User 
-  activities = []
+  activitiees 
+  activities 
   activitiesdata = []
   timeline
   diff
@@ -31,8 +44,7 @@ export class ProfiluserPage implements OnInit {
   now
   customPickerOptions: any;
   NumberOfHours
-  NumberOfHoursYear
-  NumberOfHoursMonth
+  
   formMonth : FormGroup;
   formNomModify: FormGroup;
   formPrenomModify: FormGroup;
@@ -60,7 +72,7 @@ export class ProfiluserPage implements OnInit {
   constructor(public alertController: AlertController, public navCtrl: NavController,public toastController: ToastController,public formBuilder : FormBuilder,public activityService : ActivityService,private userService : UserService ,private activatedRoute: ActivatedRoute) {
 
     
- 
+    
     this.formNomModify = this.formBuilder.group({
       nom : new FormControl('', Validators.compose([
           Validators.required
@@ -104,9 +116,12 @@ export class ProfiluserPage implements OnInit {
         
       });
 
+      this.timeline="create";
       this.customPickerOptions = {
         cssClass :"MyDatePicker"
       }
+
+     
 
       if(this.nowMonth<10){
         this.now = this.nowYear.toString() +"-0"+this.nowMonth.toString()+"-01"
@@ -114,7 +129,8 @@ export class ProfiluserPage implements OnInit {
         this.now = this.nowYear.toString() +"-"+this.nowMonth.toString()+"-01"
       }
 
-      this.getCurrentYear()
+
+      
 
    }
 
@@ -124,7 +140,7 @@ export class ProfiluserPage implements OnInit {
       prenom: '',
       poste: '',
       carteId: '',
-      authorised:false
+      authorised:false,
     };
     this.carteId = this.activatedRoute.snapshot.paramMap.get('carteId');
     this.userService.getUser(this.carteId).valueChanges().subscribe(res=>{
@@ -136,22 +152,32 @@ export class ProfiluserPage implements OnInit {
      this.authorised=res['0']
      console.log(this.User.authorised)
     })
+   
 
-    this.getActivityByUser()
-    this.timeline="create";
+    setTimeout(() => {
+      this.getActivityByUser()
+       }, 2000);
+  
+
 
   }
 
 
 getActivityByUser(){
 
-  this.activities=this.activityService.getActivityByUser(this.carteId)
-  
+  this.activities = this.activityService.getActivityByUser(this.carteId)
+  console.log(this.activities)
 
 }
 
 
 
+getActivityByUserr(){
+
+  this.activitiees = this.activityService.getActivityByUser(this.carteId)
+  console.log(this.activitiees)
+
+}
 
 
 
@@ -365,18 +391,25 @@ async modifierAuthorised(){
 }
 
 
-segmentChanged($timeline){
 
-this.getActivityByUser()
-this.getCurrentYear()
-this.getCurrentMonth()
+
+
+
+
+segmentChanged(timeline){
+
+  if (timeline ="globe"){
+  setTimeout(() => {
+    this.getActivityByUserr()
+     }, 2000);
+
+}
 
 }
 
 
 doRefresh(event) {
   this.getActivityByUser()
-
   setTimeout(() => {
     console.log('Async operation has ended');
     event.target.complete();
@@ -385,7 +418,7 @@ doRefresh(event) {
 
 
 
-getMonth(month){
+async getMonth(month){
   var MonthAfter
   var MonthActuel
   var Month 
@@ -419,10 +452,21 @@ getMonth(month){
   
   MonthArgument =(-1 * Month).toString()
   MonthAfterArgument = (-1 * MonthAfter).toString()
-  this.CurrentMonthClicked =true
-  this.NumberOfHours=this.getStatisticsByMonth(this.carteId,MonthArgument,MonthAfterArgument)
-  
-  
+  this.NumberOfHours = this.activityService.getStatisticsByMonth(this.carteId,MonthArgument,MonthAfterArgument)
+  const alert = await this.alertController.create({
+    cssClass: 'my-alert-class',
+    message:   `<div class="alert-wrapper">${this.NumberOfHours} heures </div>`,
+    buttons: [{
+      cssClass: 'my-button-alert',
+      text: 'Ok',
+      handler : () =>{
+        console.log('ok clicked')
+      }
+    
+    }]
+    });
+    await alert.present();
+
   
   }
   
@@ -432,26 +476,6 @@ getMonth(month){
     this.activityService.getStatisticsByMonth(carteId,monthStart,monthEnd)    
    }
    
-
-   getCurrentYear(){
-     
-    var year = (-1)*Date.parse(this.nowYear.toString())
-    var yearString = year.toString()
-    this.NumberOfHoursYear = this.activityService.getStatisticsCurrentYear(this.carteId,yearString)
-  
-
-   }
-
-
-   getCurrentMonth(){
-     
-    var month = (-1)*Date.parse(this.now)
-    var monthString = month.toString()
-    this.NumberOfHoursMonth = this.activityService.getStatisticsCurrentMonth(this.carteId,monthString)
-   
-
-   }
-
 
 
 
@@ -465,18 +489,8 @@ lastActivityPage(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
+
+
+
+

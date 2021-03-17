@@ -2,35 +2,28 @@
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
 
 <ion-content fullscreen="true" class="ion-padding" >
+
   <svg class="back-blob ion-padding"  viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
     <path fill="#EBAB81" d="M14,-22.4C22.6,-13,37.1,-14.9,38.4,-12.2C39.7,-9.5,27.7,-2.2,20.6,2.7C13.5,7.5,11.3,10,8.6,22.2C6,34.3,3,56.2,-0.5,56.9C-4,57.6,-8,37,-12.1,25.4C-16.3,13.7,-20.5,10.9,-32.8,3.5C-45.1,-3.9,-65.4,-15.9,-68.2,-26.8C-71,-37.7,-56.4,-47.6,-42.1,-55.2C-27.8,-62.8,-13.9,-68.2,-5.6,-60.5C2.7,-52.7,5.4,-31.9,14,-22.4Z" transform="translate(100 100)" />
   </svg>
 
-  <br>
-  
  
     <div class="transparentWrapper ">     
       <h5 class="profileName ion-text-center custom-font"> {{User.prenom}} {{User.nom | uppercase}}</h5>
     </div> 
 
-
-
+  
+    
 
   
     <div class="transparent">
   
-    <ion-segment  scrollable [(ngModel)]="timeline" color="warning" (ionChange)="segmentChanged($timeline)"  scrollable>
+    <ion-segment  scrollable [(ngModel)]="timeline" color="warning" (ionChange)="segmentChanged(timeline)"  scrollable>
       <ion-segment-button value="globe">
        
         <ion-icon name="globe"  color="item"></ion-icon> 
      
       </ion-segment-button>
-
-      <ion-segment-button value="statistics">
-        <ion-icon name="stats-chart" color="item" ></ion-icon>
-        
-      </ion-segment-button>
-
 
       <ion-segment-button value="create">
         <ion-icon name="create" color="item"></ion-icon>
@@ -53,18 +46,12 @@
           
           
             <div *ngSwitchCase="'globe'" class="wellwhite" >
-
-              <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-                <ion-refresher-content
-                  pullingIcon="chevron-down-circle-outline"
-                  pullingText="Pull to refresh"
-                  refreshingSpinner="circles"
-                  refreshingText="Refreshing...">
-                </ion-refresher-content>
-              </ion-refresher>
-              <div>  
-                
-                <ion-item *ngFor="let activity of activities " class="transparentDiv" >
+              <div class="container-form-btn">
+              <a class="form-btn custom-font" [routerLink]="['/statistics/',User.carteId,User.nom,User.prenom]" routerDirection="root"><strong></strong> More statistics </a>
+             </div>
+              <div *ngIf="activitiees">
+              
+                <ion-item  *ngFor="let activity of activitiees " class="transparentDiv" >
                   <ion-label>
                   
                     <p>
@@ -85,10 +72,109 @@
                   </ion-label>
                              
                 </ion-item>
-
-
               </div>
-  
+
+                <div *ngIf="!activitiees">           
+                    <ion-item class="transparentDiv" >
+                      <ion-thumbnail slot="start">
+                        <ion-skeleton-text animated></ion-skeleton-text>
+                      </ion-thumbnail>
+                      <ion-label>
+                        <h3>
+                          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                        </h3>
+                        <p>
+                          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                        </p>
+                        <p>
+                          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                        </p>
+                      </ion-label>
+                    </ion-item> 
+                    <ion-item class="transparentDiv" >
+                      <ion-thumbnail slot="start">
+                        <ion-skeleton-text animated></ion-skeleton-text>
+                      </ion-thumbnail>
+                      <ion-label>
+                        <h3>
+                          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                        </h3>
+                        <p>
+                          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                        </p>
+                        <p>
+                          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                        </p>
+                      </ion-label>
+                    </ion-item>  
+                    <ion-item class="transparentDiv" >
+                      <ion-thumbnail slot="start">
+                        <ion-skeleton-text animated></ion-skeleton-text>
+                      </ion-thumbnail>
+                      <ion-label>
+                        <h3>
+                          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                        </h3>
+                        <p>
+                          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                        </p>
+                        <p>
+                          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                        </p>
+                      </ion-label>
+                    </ion-item>  
+                    <ion-item class="transparentDiv" >
+                      <ion-thumbnail slot="start">
+                        <ion-skeleton-text animated></ion-skeleton-text>
+                      </ion-thumbnail>
+                      <ion-label>
+                        <h3>
+                          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                        </h3>
+                        <p>
+                          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                        </p>
+                        <p>
+                          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                        </p>
+                      </ion-label>
+                    </ion-item>  
+                    <ion-item class="transparentDiv" >
+                      <ion-thumbnail slot="start">
+                        <ion-skeleton-text animated></ion-skeleton-text>
+                      </ion-thumbnail>
+                      <ion-label>
+                        <h3>
+                          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                        </h3>
+                        <p>
+                          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                        </p>
+                        <p>
+                          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                        </p>
+                      </ion-label>
+                    </ion-item>  
+                    
+                        <ion-item class="transparentDiv" >
+                      <ion-thumbnail slot="start">
+                        <ion-skeleton-text animated></ion-skeleton-text>
+                      </ion-thumbnail>
+                      <ion-label>
+                        <h3>
+                          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                        </h3>
+                        <p>
+                          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                        </p>
+                        <p>
+                          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                        </p>
+                      </ion-label>
+                    </ion-item> 
+                 
+                </div>
+   
                 </div>
                 <div *ngSwitchCase="'trash'" class="wellwhite" >
                
@@ -108,56 +194,7 @@
         
                   </div>
 
-                  
-
-                  <div *ngSwitchCase="'statistics'"  >
-                    <div class="transparent">
-                    <ion-grid>
-
-                      <ion-row>
-                        <ion-col >
-                         
-                          <div class="currentMonth">
-                            <h2 class="titleStatistics">Ce mois</h2>
-                            <h5 class="currentMonthHours">{{NumberOfHoursMonth}}<SUB>heures</SUB></h5>
-                              
-                          </div>
-                        </ion-col>
-                      
-                        <ion-col >
-                         
-                          <div class="currentYear">
-                            <h2 class="titleStatistics">Cette année</h2>
-                            <h5 class="currentYearHours">{{NumberOfHoursYear}}<SUB>heures</SUB></h5>
-                            
-                            
-                          </div>
-                        </ion-col>
-                      </ion-row>
-
-                    </ion-grid>
-                  </div> 
-
-                    <form class="ion-padding"[formGroup]="formMonth" >                                                                     
-                        <ion-item class="transparentDiv">
-                          <ion-label position="stacked">Sélectionner un mois</ion-label>
-                          <ion-datetime  [pickerOptions]="customPickerOptions" doneText="Confirmer" cancelText="Annuler" displayFormat="MMMM YYYY" min="2020-01" max={{now}} value="" formControlName="month" [(ngModel)]="month" ></ion-datetime>
-                        </ion-item>
-
-                      <div class="container-form-btn">
-                        
-                        <button class="form-btn custom-font" (click)="getMonth(month)">
-                        Nombre d'heures
-                        </button>
-                      </div>                       
-                    </form>
-                  
-          
-                    </div>
-
-
-
-
+  
 
 
                 <div *ngSwitchCase="'create'" >
@@ -349,7 +386,7 @@
 
                     </div>  
 
-    </div> 
+            </div> 
   
    
   

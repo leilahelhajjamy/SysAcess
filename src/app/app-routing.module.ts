@@ -30,12 +30,17 @@ const routes: Routes = [
   {
   path: 'profiluser/:carteId',
   loadChildren: () => import('./profiluser/profiluser.module').then(m => m.ProfiluserPageModule),
-  },  {
+  },
+  {
     path: 'addactivity',
     loadChildren: () => import('./addactivity/addactivity.module').then( m => m.AddactivityPageModule)
   },
   {
     path: 'statistics',
+    loadChildren: () => import('./statistics/statistics.module').then( m => m.StatisticsPageModule)
+  },
+  {
+    path: 'statistics/:carteId/:nom/:prenom',
     loadChildren: () => import('./statistics/statistics.module').then( m => m.StatisticsPageModule)
   }
 

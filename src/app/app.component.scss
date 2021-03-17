@@ -241,7 +241,7 @@
   .transparentDiv{
     box-shadow: none;
     border-radius: 18px;
-    color: #493838;
+    color: #493838; 
     background-color: rgba(255, 255, 255, .7);  
     margin-left: auto;
     margin-right: auto;
@@ -249,6 +249,23 @@
     max-width: 700px;
     
   }
+
+
+  .transparentOrange{
+    box-shadow: none;
+    border-radius: 18px;
+    color: #493838; 
+    background-color: rgba(235, 171, 129, 0.3);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1%;
+    max-width: 700px;
+    backdrop-filter: blur(8px);
+    
+  }
+
+
+
 
   .transparent{
     box-shadow: none;
@@ -292,7 +309,6 @@
     display: flex;
     justify-content: center;
   }
-
 
 
 

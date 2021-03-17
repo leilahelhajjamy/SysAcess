@@ -1,17 +1,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
 
 <ion-header class="ion-no-border">
-	<ion-header class="ion-no-border">
-		<ion-toolbar>
-		
-		  <ion-searchbar
-		  showcancelbutton=""
-		  animated="true"
-		></ion-searchbar>
-	  
-		</ion-toolbar>
-	  </ion-header>
-</ion-header>
+	<ion-toolbar>
+	
+	  <ion-searchbar
+	
+	  animated="true"
+	></ion-searchbar>
+  
+	</ion-toolbar>
+  </ion-header>
 
 <ion-content fullscreen="true" class="ion-padding">
 
@@ -20,35 +18,310 @@
   </svg>
 
 
-  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-	<ion-refresher-content
-	  pullingIcon="chevron-down-circle-outline"
-	  pullingText="Pull to refresh"
-	  refreshingSpinner="circles"
-	  refreshingText="Refreshing...">
-	</ion-refresher-content>
-  </ion-refresher>
 
-  <ion-item *ngFor="let activity of activities " class="transparentDiv" >
-	<ion-label>
-		<h5 class="userName">
-			<ion-icon name="person"></ion-icon> <a class="linkUnderlined" [routerLink]="['/profiluser/', activity.carteId]" routerDirection="root"><strong>{{activity.nom | uppercase}}   {{activity.prenom}}</strong> </a><span>   {{activity.poste}}  porteur de la carte  {{activity.carteId}}</span>
-		  </h5>
-	  <p>
-		<ion-icon name="timer"></ion-icon> <a class="link">{{activity.timestamp}}</a> 
-	  </p>
-		  
-		<div  *ngIf="activity.type==='IN'" class="flex-button">
-		  <P>IN</P>
-	 </div>
-																			   
-		<div *ngIf="activity.type==='OUT'" class="flex-button">
-		  <P>OUT</P>
-	 </div>
-										
-	</ion-label>
-			   
-  </ion-item>
+
+  <div class="transparent">
+  
+    <ion-segment  scrollable [(ngModel)]="timeline" color="warning" (ionChange)="segmentChanged(timeline)"  scrollable>
+      <ion-segment-button value="globe">      
+		Dernières 24h
+      </ion-segment-button>
+
+      <ion-segment-button value="moi">
+        Ce moi
+      </ion-segment-button>
+
+      <ion-segment-button value="search">
+        Chercher
+      </ion-segment-button>    
+    </ion-segment>
+  </div>
+
+
+  <div [ngSwitch]="timeline" >
+          
+          
+	<div *ngSwitchCase="'globe'" class="wellwhite" >
+		
+		<div *ngIf="!activitiesAjourdhui">           
+			<ion-item class="transparentDiv" >
+			  <ion-thumbnail slot="start">
+				<ion-skeleton-text animated></ion-skeleton-text>
+			  </ion-thumbnail>
+			  <ion-label>
+				<h3>
+				  <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+				</h3>
+				<p>
+				  <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+				</p>
+				<p>
+				  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+				</p>
+			  </ion-label>
+			</ion-item> 
+			<ion-item class="transparentDiv" >
+			  <ion-thumbnail slot="start">
+				<ion-skeleton-text animated></ion-skeleton-text>
+			  </ion-thumbnail>
+			  <ion-label>
+				<h3>
+				  <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+				</h3>
+				<p>
+				  <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+				</p>
+				<p>
+				  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+				</p>
+			  </ion-label>
+			</ion-item>  
+			<ion-item class="transparentDiv" >
+			  <ion-thumbnail slot="start">
+				<ion-skeleton-text animated></ion-skeleton-text>
+			  </ion-thumbnail>
+			  <ion-label>
+				<h3>
+				  <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+				</h3>
+				<p>
+				  <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+				</p>
+				<p>
+				  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+				</p>
+			  </ion-label>
+			</ion-item>  
+			<ion-item class="transparentDiv" >
+			  <ion-thumbnail slot="start">
+				<ion-skeleton-text animated></ion-skeleton-text>
+			  </ion-thumbnail>
+			  <ion-label>
+				<h3>
+				  <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+				</h3>
+				<p>
+				  <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+				</p>
+				<p>
+				  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+				</p>
+			  </ion-label>
+			</ion-item>  
+			<ion-item class="transparentDiv" >
+			  <ion-thumbnail slot="start">
+				<ion-skeleton-text animated></ion-skeleton-text>
+			  </ion-thumbnail>
+			  <ion-label>
+				<h3>
+				  <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+				</h3>
+				<p>
+				  <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+				</p>
+				<p>
+				  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+				</p>
+			  </ion-label>
+			</ion-item>  
+			
+				<ion-item class="transparentDiv" >
+			  <ion-thumbnail slot="start">
+				<ion-skeleton-text animated></ion-skeleton-text>
+			  </ion-thumbnail>
+			  <ion-label>
+				<h3>
+				  <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+				</h3>
+				<p>
+				  <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+				</p>
+				<p>
+				  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+				</p>
+			  </ion-label>
+			</ion-item> 
+		 
+		</div>
+
+
+
+		<div *ngIf="activitiesAjourdhui">
+
+			<ion-item *ngFor="let activity of activitiesAjourdhui " class="transparentDiv" >
+				<ion-label>
+					<h5 class="userName">
+						<ion-icon name="person"></ion-icon> <a class="linkUnderlined" [routerLink]="['/profiluser/', activity.carteId]" routerDirection="root"><strong>{{activity.nom | uppercase}}   {{activity.prenom}}</strong> </a><span>   {{activity.poste}}  porteur de la carte  {{activity.carteId}}</span>
+					  </h5>
+				  <p>
+					<ion-icon name="timer"></ion-icon> <a class="link">{{activity.timestamp}}</a> 
+				  </p>
+					  
+					<div  *ngIf="activity.type==='IN'" class="flex-button">
+					  <P>IN</P>
+				 </div>
+																						   
+					<div *ngIf="activity.type==='OUT'" class="flex-button">
+					  <P>OUT</P>
+				 </div>
+													
+				</ion-label>
+						   
+			  </ion-item>
+		 </div> 
+
+	</div>
+
+	<div *ngSwitchCase="'moi'" class="wellwhite" >
+
+		<div *ngIf="activities">
+		<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+			<ion-refresher-content
+			  pullingIcon="chevron-down-circle-outline"
+			  pullingText="Pull to refresh"
+			  refreshingSpinner="circles"
+			  refreshingText="Refreshing...">
+			</ion-refresher-content>
+		  </ion-refresher>
+				
+		  <ion-item *ngFor="let activity of activities " class="transparentDiv" >
+			<ion-label>
+				<h5 class="userName">
+					<ion-icon name="person"></ion-icon> <a class="linkUnderlined" [routerLink]="['/profiluser/', activity.carteId]" routerDirection="root"><strong>{{activity.nom | uppercase}}   {{activity.prenom}}</strong> </a><span>   {{activity.poste}}  porteur de la carte  {{activity.carteId}}</span>
+				  </h5>
+			  <p>
+				<ion-icon name="timer"></ion-icon> <a class="link">{{activity.timestamp}}</a> 
+			  </p>
+				  
+				<div  *ngIf="activity.type==='IN'" class="flex-button">
+				  <P>IN</P>
+			 </div>
+																					   
+				<div *ngIf="activity.type==='OUT'" class="flex-button">
+				  <P>OUT</P>
+			 </div>
+												
+			</ion-label>
+					   
+		  </ion-item>
+		</div>
+
+
+		<div *ngIf="!activities">           
+			<ion-item class="transparentDiv" >
+			  <ion-thumbnail slot="start">
+				<ion-skeleton-text animated></ion-skeleton-text>
+			  </ion-thumbnail>
+			  <ion-label>
+				<h3>
+				  <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+				</h3>
+				<p>
+				  <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+				</p>
+				<p>
+				  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+				</p>
+			  </ion-label>
+			</ion-item> 
+			<ion-item class="transparentDiv" >
+			  <ion-thumbnail slot="start">
+				<ion-skeleton-text animated></ion-skeleton-text>
+			  </ion-thumbnail>
+			  <ion-label>
+				<h3>
+				  <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+				</h3>
+				<p>
+				  <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+				</p>
+				<p>
+				  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+				</p>
+			  </ion-label>
+			</ion-item>  
+			<ion-item class="transparentDiv" >
+			  <ion-thumbnail slot="start">
+				<ion-skeleton-text animated></ion-skeleton-text>
+			  </ion-thumbnail>
+			  <ion-label>
+				<h3>
+				  <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+				</h3>
+				<p>
+				  <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+				</p>
+				<p>
+				  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+				</p>
+			  </ion-label>
+			</ion-item>  
+			<ion-item class="transparentDiv" >
+			  <ion-thumbnail slot="start">
+				<ion-skeleton-text animated></ion-skeleton-text>
+			  </ion-thumbnail>
+			  <ion-label>
+				<h3>
+				  <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+				</h3>
+				<p>
+				  <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+				</p>
+				<p>
+				  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+				</p>
+			  </ion-label>
+			</ion-item>  
+			<ion-item class="transparentDiv" >
+			  <ion-thumbnail slot="start">
+				<ion-skeleton-text animated></ion-skeleton-text>
+			  </ion-thumbnail>
+			  <ion-label>
+				<h3>
+				  <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+				</h3>
+				<p>
+				  <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+				</p>
+				<p>
+				  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+				</p>
+			  </ion-label>
+			</ion-item>  
+			
+				<ion-item class="transparentDiv" >
+			  <ion-thumbnail slot="start">
+				<ion-skeleton-text animated></ion-skeleton-text>
+			  </ion-thumbnail>
+			  <ion-label>
+				<h3>
+				  <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+				</h3>
+				<p>
+				  <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+				</p>
+				<p>
+				  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+				</p>
+			  </ion-label>
+			</ion-item> 
+		 
+		</div>
+
+
+
+
+
+
+	</div>
+
+
+
+
+
+</div>
+
+
 
 
 </ion-content>

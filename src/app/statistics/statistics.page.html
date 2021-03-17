@@ -1,84 +1,125 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>statistics</ion-title>
-  </ion-toolbar>
-</ion-header>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
 
-<ion-content>
-  <form class="ion-padding"[formGroup]="formStatistics" >
-  
-    <div class=" glassDiv wrap-inputUseradd">
-    <input class="input" type="text"  formControlName="carteId" [(ngModel)]="carteId" placeholder="carteId">
-    </div>
-    <div class=" glassDiv wrap-inputUseradd">
-      <input class="input" type="text"  formControlName="monthStart" [(ngModel)]="monthStart" placeholder="monthStart">
-      </div>
-
-      <div class=" glassDiv wrap-inputUseradd">
-        <input class="input" type="text"  formControlName="monthEnd" [(ngModel)]="monthEnd" placeholder="monthEnd">
-        </div>
+<ion-content fullscreen="true" class="ion-padding">
 
 
+  <div class="transparentWrapper ">     
+    <h5 class="profileName ion-text-center custom-font">  {{prenom}} {{nom | uppercase}}</h5>
+  </div> 
 
-    <div class="container-form-btn">
-      
-      <button class="form-btn custom-font" (click)="getStatisticsByMonth(carteId , monthStart, monthEnd)">
-    Ajouter
-      </button>
-    </div>   
+      <ion-card class="transparentOrange">
+        <ion-card-header>
+          <ion-card-subtitle></ion-card-subtitle>
+          <ion-card-title>Nombre d'heures totales pendant l'année courante {{NumberOfHoursYear}} </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <canvas #barChart></canvas>
+        </ion-card-content>
+      </ion-card>
+    
 
-   
-  </form>
-
-
-
-  <form class="ion-padding"[formGroup]="formMonth" >
-  
-  
-    <div class=" glassDiv wrap-inputUseradd">
-      <input class="input" type="text"       placeholder="month">
-      </div>
-
-     
-      <ion-item>
-        <ion-label position="stacked">MMMM YY</ion-label>
-        <ion-datetime displayFormat="MMMM YY" min="2020-01" max={{now}} value="" formControlName="month" [(ngModel)]="month" ></ion-datetime>
-      </ion-item>
-
+      <ion-card class="transparentOrange">
+        <ion-card-header>
+          <ion-card-subtitle></ion-card-subtitle>
+          <ion-card-title>statistiques du moi courant  </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <canvas #barChartMonth></canvas>
+        </ion-card-content>
+      </ion-card>
 
 
-    <div class="container-form-btn">
-      
-      <button class="form-btn custom-font" (click)="getMonth(month)">
-    Ajouter
-      </button>
-    </div>   
+        <div class="transparent">
+          
+       <!-- <ion-grid>
 
-   
-  </form>
+          <ion-row>
+            <ion-col >
+             
 
-
-
-
-  
-  <form class="ion-padding"[formGroup]="formYear" >
-  
-  
-    <div class=" glassDiv wrap-inputUseradd">
-      <input class="input" type="text"  formControlName="year" [(ngModel)]="year" placeholder="year">
-      </div>
-
-
-    <div class="container-form-btn">
-      
-      <button class="form-btn custom-font" (click)="getYear(year)">
-    Ajouter
-      </button>
-    </div>   
-
-   
-  </form>
+              <div *ngIf="NumberOfHoursMonth==null">
+                                    
+                  <ion-item class="transparentDiv currentMonth">
+                    <ion-thumbnail slot="start">
+                      <ion-skeleton-text animated></ion-skeleton-text>
+                    </ion-thumbnail>
+                    <ion-label>
+                      <h3>
+                        <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                      </h3>
+                      <p>
+                        <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                      </p>
+                      <p>
+                        <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                      </p>
+                    </ion-label>
+                  </ion-item>                    
+               
+              </div>
 
 
+              <div *ngIf="NumberOfHoursMonth" class="currentMonth">
+                <h2 class="titleStatistics">Ce moi</h2>
+                <h5 class="currentMonthHours">{{NumberOfHoursMonth}}<SUB>heures</SUB></h5>
+                  
+              </div>
+            </ion-col>
+          
+
+
+
+            <ion-col >
+             
+              
+
+              <div *ngIf="NumberOfHoursYear==null">
+                               
+                  <ion-item class="transparentDiv currentYear" >
+                    <ion-thumbnail slot="start">
+                      <ion-skeleton-text animated></ion-skeleton-text>
+                    </ion-thumbnail>
+                    <ion-label>
+                      <h3>
+                        <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                      </h3>
+                      <p>
+                        <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                      </p>
+                      <p>
+                        <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                      </p>
+                    </ion-label>
+                  </ion-item>                    
+               
+              </div>
+
+
+              <div *ngIf="NumberOfHoursYear" class="currentYear">
+                <h2 class="titleStatistics">Cette année</h2>
+                <h5 class="currentYearHours">{{NumberOfHoursYear}}<SUB>heures</SUB></h5>
+                            
+              </div>
+            </ion-col>
+          </ion-row>
+
+        </ion-grid>-->
+      </div> 
+
+                     
+
+ <!-- <form class="ion-padding"[formGroup]="formYear" >                                                                     
+    <ion-item class="transparentDiv">
+      <ion-label position="stacked">Sélectionner un moi</ion-label>
+      <ion-datetime  [pickerOptions]="PickerOptions" doneText="Confirmer" cancelText="Annuler" displayFormat="YYYY" min="2018" max={{nowYear}} value="" formControlName="year" [(ngModel)]="year" ></ion-datetime>
+    </ion-item>
+
+  <div class="container-form-btn">
+    
+    <button class="form-btn custom-font" (click)="getStatisticsYear(year)">
+    Statistiques
+    </button>
+  </div>                       
+</form> --> 
 
 </ion-content>
