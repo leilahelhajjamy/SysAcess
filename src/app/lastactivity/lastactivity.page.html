@@ -3,22 +3,18 @@
 <ion-header class="ion-no-border">
 	<ion-toolbar>
 	
-	  <ion-searchbar
-	
-	  animated="true"
-	></ion-searchbar>
+		<div class="transparentWrapper ">     
+			<h5 class="profileName ion-text-center custom-font"> Dernières activités</h5>
+		  </div>
   
 	</ion-toolbar>
   </ion-header>
 
 <ion-content fullscreen="true" class="ion-padding">
-
+	
   <svg class="back-blob"  viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
     <path fill="#EBAB81" d="M14,-22.4C22.6,-13,37.1,-14.9,38.4,-12.2C39.7,-9.5,27.7,-2.2,20.6,2.7C13.5,7.5,11.3,10,8.6,22.2C6,34.3,3,56.2,-0.5,56.9C-4,57.6,-8,37,-12.1,25.4C-16.3,13.7,-20.5,10.9,-32.8,3.5C-45.1,-3.9,-65.4,-15.9,-68.2,-26.8C-71,-37.7,-56.4,-47.6,-42.1,-55.2C-27.8,-62.8,-13.9,-68.2,-5.6,-60.5C2.7,-52.7,5.4,-31.9,14,-22.4Z" transform="translate(100 100)" />
   </svg>
-
-
-
 
   <div class="transparent">
   
@@ -37,10 +33,8 @@
     </ion-segment>
   </div>
 
-
   <div [ngSwitch]="timeline" >
-          
-          
+                    
 	<div *ngSwitchCase="'globe'" class="wellwhite" >
 		
 		<div *ngIf="!activitiesAjourdhui">           
@@ -151,7 +145,7 @@
 			<ion-item *ngFor="let activity of activitiesAjourdhui " class="transparentDiv" >
 				<ion-label>
 					<h5 class="userName">
-						<ion-icon name="person"></ion-icon> <a class="linkUnderlined" [routerLink]="['/profiluser/', activity.carteId]" routerDirection="root"><strong>{{activity.nom | uppercase}}   {{activity.prenom}}</strong> </a><span>   {{activity.poste}}  porteur de la carte  {{activity.carteId}}</span>
+						<ion-icon name="person"></ion-icon> <a class="linkUnderlined" (click)="profileUser(activity.carteId)"><strong>{{activity.nom | uppercase}}   {{activity.prenom}}</strong> </a><span>   {{activity.poste}}  porteur de la carte  {{activity.carteId}}</span>
 					  </h5>
 				  <p>
 					<ion-icon name="timer"></ion-icon> <a class="link">{{activity.timestamp}}</a> 
@@ -187,7 +181,7 @@
 		  <ion-item *ngFor="let activity of activities " class="transparentDiv" >
 			<ion-label>
 				<h5 class="userName">
-					<ion-icon name="person"></ion-icon> <a class="linkUnderlined" [routerLink]="['/profiluser/', activity.carteId]" routerDirection="root"><strong>{{activity.nom | uppercase}}   {{activity.prenom}}</strong> </a><span>   {{activity.poste}}  porteur de la carte  {{activity.carteId}}</span>
+					<ion-icon name="person"></ion-icon> <a class="linkUnderlined" (click)="profileUser(activity.carteId)"><strong>{{activity.nom | uppercase}}   {{activity.prenom}}</strong> </a><span>   {{activity.poste}}  porteur de la carte  {{activity.carteId}}</span>
 				  </h5>
 			  <p>
 				<ion-icon name="timer"></ion-icon> <a class="link">{{activity.timestamp}}</a> 
@@ -308,35 +302,9 @@
 		 
 		</div>
 
-
-
-
-
-
 	</div>
-
-
-
-
 
 </div>
 
-
-
-
 </ion-content>
-<ion-footer>
-  <ion-toolbar>
-  	<div class="tabs">
-			<ion-button class="buttonIcon" fill="solid" color="orange">
-				<ion-icon   name="timer" color="warning" style="zoom:1.5"></ion-icon>
-			</ion-button>
-      <ion-button  (click)="historyPage()" class="buttonIcon" fill="solid" color="jaune" >
-				<ion-icon name="archive-outline" color="warning" style="zoom:1.5"></ion-icon>
-			</ion-button>
-      <ion-button (click)="usersPage()" class="buttonIcon" fill="solid" color="jaune">
-				<ion-icon name="people-outline" color="warning" style="zoom:1.5"></ion-icon>
-			</ion-button>
-		</div>
-  </ion-toolbar>
-</ion-footer>
+<app-tabscomponent></app-tabscomponent>

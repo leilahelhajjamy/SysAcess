@@ -4,20 +4,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TabscomponentPageModule } from '../tabscomponent/tabscomponent.module';
 import { IonicModule } from '@ionic/angular';
 
-import { StatisticsPageRoutingModule } from './statistics-routing.module';
+import { AnciennesactivitesPageRoutingModule } from './anciennesactivites-routing.module';
 
-import { StatisticsPage } from './statistics.page';
+import { AnciennesactivitesPage } from './anciennesactivites.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    StatisticsPageRoutingModule,
-   
-    ReactiveFormsModule,
-    TabscomponentPageModule
+    AnciennesactivitesPageRoutingModule,
+    TabscomponentPageModule,
+    ReactiveFormsModule 
   ],
-  declarations: [StatisticsPage]
+  declarations: [AnciennesactivitesPage]
 })
-export class StatisticsPageModule {}
+export class AnciennesactivitesPageModule {}

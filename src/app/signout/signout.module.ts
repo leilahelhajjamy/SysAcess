@@ -1,23 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { TabscomponentPageModule } from '../tabscomponent/tabscomponent.module';
 import { IonicModule } from '@ionic/angular';
 
-import { StatisticsPageRoutingModule } from './statistics-routing.module';
+import { SignoutPageRoutingModule } from './signout-routing.module';
 
-import { StatisticsPage } from './statistics.page';
+import { SignoutPage } from './signout.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    StatisticsPageRoutingModule,
-   
-    ReactiveFormsModule,
+    SignoutPageRoutingModule,
     TabscomponentPageModule
   ],
-  declarations: [StatisticsPage]
+  declarations: [SignoutPage]
 })
-export class StatisticsPageModule {}
+
+export class SignoutPageModule {}

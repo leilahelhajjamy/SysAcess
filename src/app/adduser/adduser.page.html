@@ -1,5 +1,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
 
+<ion-header class="ion-no-border">
+	<ion-toolbar>
+    <div class="back-circle"></div>
+		<ion-title class="ion-text-center custom-font">Ajouter</ion-title>
+	</ion-toolbar>
+</ion-header>
 
 
 <ion-content fullscreen="true" class="ion-padding">
@@ -47,18 +53,4 @@
    
 
 </ion-content>
-<ion-footer>
-  <ion-toolbar>
-    <div class="tabs">
-      <ion-button (click)="lastActivityPage()" class="buttonIcon" fill="solid" color="orange">
-        <ion-icon   name="timer-outline" color="warning" style="zoom:1.5"></ion-icon>
-      </ion-button>
-      <ion-button  (click)="historyPage()" class="buttonIcon" fill="solid" color="jaune" >
-        <ion-icon name="archive-outline" color="warning" style="zoom:1.5"></ion-icon>
-      </ion-button>
-      <ion-button (click)="usersPage()" class="buttonIcon" fill="solid" color="jaune">
-        <ion-icon name="people-outline" color="warning" style="zoom:1.5"></ion-icon>
-      </ion-button>
-    </div>
-  </ion-toolbar>
-</ion-footer>
+<app-tabscomponent></app-tabscomponent>

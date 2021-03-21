@@ -1,10 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, NavController, ToastController } from '@ionic/angular';
 import { ActivityService } from '../services/activity.service';
 import { UserService } from '../services/user.service';
-import { Chart } from 'chart.js';
+
 
 @Component({
   selector: 'app-profiluser',
@@ -19,9 +19,7 @@ export class ProfiluserPage implements OnInit {
   loading = true 
   colorArray = [ "#f4acb7","#ffb5a7","#e6b8a2","#f2c6de","#e56b6f","#fec89a","#9a8c98","#ff99ac","#f4acb7","#ffb5a7","#e6b8a2","#f2c6de"]
   months
-
-
-
+  nowForMonth
 
 
   carteId : string;
@@ -69,10 +67,8 @@ export class ProfiluserPage implements OnInit {
 
 
 
-  constructor(public alertController: AlertController, public navCtrl: NavController,public toastController: ToastController,public formBuilder : FormBuilder,public activityService : ActivityService,private userService : UserService ,private activatedRoute: ActivatedRoute) {
+  constructor(public router : Router ,public alertController: AlertController, public navCtrl: NavController,public toastController: ToastController,public formBuilder : FormBuilder,public activityService : ActivityService,private userService : UserService ,private activatedRoute: ActivatedRoute) {
 
-    
-    
     this.formNomModify = this.formBuilder.group({
       nom : new FormControl('', Validators.compose([
           Validators.required
@@ -130,9 +126,15 @@ export class ProfiluserPage implements OnInit {
       }
 
 
+      if(this.nowMonth<10){
+        this.nowForMonth = this.nowYear.toString() +"-0"+this.nowMonth.toString()+"-01"
+      }else{
+        this.nowForMonth = this.nowYear.toString() +"-"+this.nowMonth.toString()+"-01"
+      }
       
+ }
 
-   }
+
 
   ngOnInit() {
     this.User = {
@@ -163,6 +165,7 @@ export class ProfiluserPage implements OnInit {
   }
 
 
+
 getActivityByUser(){
 
   this.activities = this.activityService.getActivityByUser(this.carteId)
@@ -171,13 +174,15 @@ getActivityByUser(){
 }
 
 
+getActivitiesCurrentMonth(){  
 
-getActivityByUserr(){
+  var month = (-1)*Date.parse(this.nowForMonth)
+  console.log(month)
+  var monthString = month.toString()
+  this.activitiees = this.activityService.getActivitiesCurrentMonth(this.carteId,monthString)
 
-  this.activitiees = this.activityService.getActivityByUser(this.carteId)
-  console.log(this.activitiees)
+ }
 
-}
 
 
 
@@ -400,7 +405,7 @@ segmentChanged(timeline){
 
   if (timeline ="globe"){
   setTimeout(() => {
-    this.getActivityByUserr()
+    this.getActivitiesCurrentMonth()
      }, 2000);
 
 }
@@ -409,7 +414,7 @@ segmentChanged(timeline){
 
 
 doRefresh(event) {
-  this.getActivityByUser()
+  this.getActivitiesCurrentMonth()
   setTimeout(() => {
     console.log('Async operation has ended');
     event.target.complete();
@@ -449,6 +454,7 @@ async getMonth(month){
     }
    
   }
+
   
   MonthArgument =(-1 * Month).toString()
   MonthAfterArgument = (-1 * MonthAfter).toString()
@@ -471,21 +477,22 @@ async getMonth(month){
   }
   
 
-
   getStatisticsByMonth(carteId,monthStart,monthEnd){
     this.activityService.getStatisticsByMonth(carteId,monthStart,monthEnd)    
    }
    
 
 
+   StatisticsPage(carteId,nom,prenom){
+    this.router.navigate(['/statistics', carteId,nom,prenom]);
 
-usersPage(){
-  this.navCtrl.navigateForward('users');
-}
+  }
 
-lastActivityPage(){
-  this.navCtrl.navigateForward('lastactivity');
-}
+
+
+  AnciennesActivitesPage(carteId,nom,prenom){
+    this.router.navigate(['anciennesactivites', carteId,nom,prenom]);
+  }
 
 
 

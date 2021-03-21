@@ -117,7 +117,7 @@ async ajouter(){
                       duration: 2000
                     });
                     toast.present();
-                    this.navCtrl.navigateRoot('users');
+                    this.navCtrl.navigateForward('users');
                   }
                   
                  
@@ -155,19 +155,6 @@ async ajouter(){
   
 
   
- 
-usersPage(){
-  this.navCtrl.navigateForward('users');
-}
-
-lastActivityPage(){
-  this.navCtrl.navigateForward('lastactivity');
-} 
-  
-
-
-
-
 
 }
 

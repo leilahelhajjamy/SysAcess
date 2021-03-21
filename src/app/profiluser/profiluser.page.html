@@ -46,11 +46,32 @@
           
           
             <div *ngSwitchCase="'globe'" class="wellwhite" >
-              <div class="container-form-btn">
-              <a class="form-btn custom-font" [routerLink]="['/statistics/',User.carteId,User.nom,User.prenom]" routerDirection="root"><strong></strong> More statistics </a>
-             </div>
+         
+
+
               <div *ngIf="activitiees">
-              
+                <ion-toolbar>
+                <div class="tabs"> 
+
+                  <button class="buttonIcon form-btn "  *ngIf="activities.length !== 0" (click)="AnciennesActivitesPage(User.carteId,User.nom,User.prenom)"><strong></strong> <ion-icon name="arrow-back-circle" color="item" style="zoom:1.5"></ion-icon>Plus anciens  </button>            
+                  <button class="buttonIcon form-btn " *ngIf="activitiees.length !== 0 && activities.length !== 0"  (click)="StatisticsPage(User.carteId,User.nom,User.prenom)"><strong></strong> Statistiques <ion-icon name="arrow-forward-circle" color="item" style="zoom:1.5"></ion-icon></button>
+                 
+                </div></ion-toolbar>
+             
+                <div *ngIf="activities.length == 0 && activitiees.length == 0 " >
+
+                  <div class="transparentDiv ">     
+                  <h5 class="profileName ion-text-center custom-font"> Pas encore d'activités à afficher</h5>
+                  </div>
+                
+                  <div *ngIf="activitiees.length == 0 && activities.length !== 0 " >
+                    <div class="transparentDiv ">     
+                      <h5 class="profileName ion-text-center custom-font"> Pas encore d'activités à afficher ce moi</h5>
+                      </div>
+                  </div>  
+  
+                </div>
+                
                 <ion-item  *ngFor="let activity of activitiees " class="transparentDiv" >
                   <ion-label>
                   
@@ -58,9 +79,6 @@
                       <ion-icon name="timer"></ion-icon> <a class="link">{{activity.timestamp}}</a> 
                     </p>
 
-
-                   
-                
                       <div  *ngIf="activity.type==='IN'" class="flex-button">
                         <P>IN</P>
                    </div>
@@ -74,7 +92,8 @@
                 </ion-item>
               </div>
 
-                <div *ngIf="!activitiees">           
+                <div *ngIf="!activitiees">
+
                     <ion-item class="transparentDiv" >
                       <ion-thumbnail slot="start">
                         <ion-skeleton-text animated></ion-skeleton-text>
@@ -392,18 +411,4 @@
   
   </ion-content>
 
-  <ion-footer>
-    <ion-toolbar>
-      <div class="tabs">
-        <ion-button (click)="lastActivityPage()" class="buttonIcon" fill="solid" color="orange">
-          <ion-icon   name="timer-outline" color="warning" style="zoom:1.5"></ion-icon>
-        </ion-button>
-        <ion-button  (click)="historyPage()" class="buttonIcon" fill="solid" color="jaune" >
-          <ion-icon name="archive-outline" color="warning" style="zoom:1.5"></ion-icon>
-        </ion-button>
-        <ion-button (click)="usersPage()" class="buttonIcon" fill="solid" color="jaune">
-          <ion-icon name="people-outline" color="warning" style="zoom:1.5"></ion-icon>
-        </ion-button>
-      </div>
-    </ion-toolbar>
-  </ion-footer>
+  <app-tabscomponent></app-tabscomponent>

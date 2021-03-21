@@ -29,10 +29,6 @@ export class AddactivityPage implements OnInit {
   ngOnInit() {
   }
 
-  save(){
-
-    this.activityService.save(this.carteId,this.now,this.type)
-  }
 
 
   saveTimeStamp(timestamp){

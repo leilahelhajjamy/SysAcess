@@ -27,6 +27,7 @@ class ActivityData{
 })
 export class ActivityService {
 
+
   NumberOfHoursCurrentMonth
   NumberOfHours
   NumberOfHoursCurrentYear
@@ -44,17 +45,6 @@ export class ActivityService {
   }
 
 
-  save(carteId,timestamp,type){
-
-    var activityData : Activity = {timestamp:timestamp,type:type}
-    var lastactivityData = {timestamp:timestamp,type:type,carteId : carteId}
-    this.activityObjectRef = this.db.object(`/activities/${carteId}/${activityData.timestamp}`);
-    this.activityObjectRef.set(activityData);
-    this.activityObjectRef = this.db.object(`/lastactivities/${activityData.timestamp}`);
-    this.activityObjectRef.set(lastactivityData);
- 
-}
-
 
 
 saveTimeStamp(carteId,timestamp,type){
@@ -64,10 +54,11 @@ saveTimeStamp(carteId,timestamp,type){
   var TimeStamp = lastactivityData.timestamp.toString()
   this.activityObjectRef = this.db.object(`/activities/${carteId}/${TimeStamp}`);
   this.activityObjectRef.set(activityData);
-  this.activityObjectRef = this.db.object(`/lastactivities/${TimeStamp}`);
-  this.activityObjectRef.set(lastactivityData);
+  //this.activityObjectRef = this.db.object(`/lastactivities/${TimeStamp}`);
+  //this.activityObjectRef.set(lastactivityData);
 
 }
+
 
 
 getActivityByUser(carteId){
@@ -88,37 +79,6 @@ activities=[]
 
 return activities
 
-}
-
- getAllActivities(){
-
-  var activities 
-  activities=[]
- 
-
-   this.db.object(`/lastactivities/`).query.orderByChild('timestamp').on('value',snapshot=>{
-  
-    snapshot.forEach( snap=>{
-      activities.push({ timestamp : new Date(-1*(snap.val().timestamp)).toString().replace( "GMT+0100" , "" ).replace( "(heure normale d\’Europe centrale)" , "" ).replace( "Z" , "" ).replace("GM +0200 (heure d'été d'Europe centrale)",""),
-      type:snap.val().type,
-      carteId : snap.val().carteId ,
-      nom : this.nom,
-      prenom : this.prenom ,
-      poste : ''
-      })
-      activities.map(element =>{
-        this.db.object(`/users/${element.carteId}`).snapshotChanges().subscribe(res=>{
-          element.nom = res.payload.child('nom').val()
-          element.prenom = res.payload.child('prenom').val() 
-          element.poste = res.payload.child('poste').val() 
-        })
-      })
-   
-    })
-  })
-  return activities
-
-  
 }
 
 
@@ -154,6 +114,9 @@ console.log("before",before)
   return activities
  
 }
+
+
+
 
 
 getStatisticsByMonth(carteId,monthStart,monthEnd){
@@ -241,7 +204,6 @@ getStatisticsCurrentYear(carteId,yearStart){
    this.db.object(`/activities/${carteId}/`).query.orderByKey().startAfter(yearStart).on('value',snapshot=>{
   
     snapshot.forEach(snap=>{
-      console.log(snap.val().type)
       activities.push({ timestamp : snap.val().timestamp,
       type:snap.val().type,
      
@@ -385,14 +347,14 @@ getStatisticsCurrentMonth(carteId,month){
 
 
 
-getActivitiesCurrentMonth(month){
+getActivitiesCurrentMonth(carteId,month){
   
   var activities 
   activities=[]
   var activitiesReverse 
 
   console.log('start fetching')
-   this.db.object(`/lastactivities/`).query.orderByKey().startAt(month).on('value',snapshot=>{
+   this.db.object(`/activities/${carteId}`).query.orderByKey().startAt(month).on('value',snapshot=>{
   
     snapshot.forEach( snap=>{
       activities.push({ timestamp : new Date(-1*(snap.val().timestamp)).toString().replace( "GMT+0100" , "" ).replace( "(heure normale d\’Europe centrale)" , "" ).replace( "Z" , "" ).replace("GM +0200 (heure d'été d'Europe centrale)",""),
@@ -412,11 +374,48 @@ getActivitiesCurrentMonth(month){
    
     })
   }) 
-
-  return activities
+  console.log(activities)
+  activitiesReverse =activities.reverse()
+  return activitiesReverse
 
 }
 
+
+
+
+
+getActivitiesByMonth(carteId,monthStart,monthEnd){
+  
+  var activities 
+  activities=[]
+  var activitiesReverse 
+
+  console.log('start fetching')
+   this.db.object(`/activities/${carteId}`).query.orderByKey().startAt(monthStart).endAt(monthEnd).on('value',snapshot=>{
+  
+    snapshot.forEach( snap=>{
+      activities.push({ timestamp : new Date(-1*(snap.val().timestamp)).toString().replace( "GMT+0100" , "" ).replace( "(heure normale d\’Europe centrale)" , "" ).replace( "Z" , "" ).replace("GM +0200 (heure d'été d'Europe centrale)",""),
+      type:snap.val().type,
+      carteId : snap.val().carteId ,
+      nom : this.nom,
+      prenom : this.prenom ,
+      poste : ''
+      })
+      activities.map(element =>{
+        this.db.object(`/users/${element.carteId}`).snapshotChanges().subscribe(res=>{
+          element.nom = res.payload.child('nom').val()
+          element.prenom = res.payload.child('prenom').val() 
+          element.poste = res.payload.child('poste').val() 
+        })
+      })
+   
+    })
+  }) 
+  console.log(activities)
+  activitiesReverse =activities.reverse()
+  return activitiesReverse
+
+}
 
 
 

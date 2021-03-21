@@ -81,7 +81,6 @@ export class UsersPage implements OnInit {
 
   adduserPage(){
     this.navCtrl.navigateForward('adduser');
-
   }
 
 
@@ -155,5 +154,10 @@ async modifierAuthorised(carteId,authorised){
   
 }
 
+
+profileUser(carteId){
+  this.router.navigate(['/profiluser', carteId]);
+
+ }
 
 }

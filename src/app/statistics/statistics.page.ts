@@ -5,7 +5,7 @@ import { ActivityService } from '../services/activity.service';
 import { Chart } from 'chart.js';
 import { parse } from 'node:path';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-statistics',
@@ -24,7 +24,8 @@ export class StatisticsPage implements OnInit {
   barsCurrent: any;
   barsMonth
   colorArray = [ "#f4acb7","#ffb5a7","#e6b8a2","#f2c6de","#e56b6f","#fec89a","#9a8c98","#ff99ac","#f4acb7","#ffb5a7","#e6b8a2","#f2c6de"]
-   
+  colorArrayColors =["#f4acb7","#ffb5a7","#e6b8a2","#f2c6de","#e56b6f","#fec89a","#9a8c98","#ff99ac","#f4acb7","#ffb5a7","#e6b8a2","#f2c6de","#f4acb7","#ffb5a7","#e6b8a2","#f2c6de","#e56b6f","#fec89a","#9a8c98","#ff99ac","#f4acb7","#ffb5a7","#e6b8a2","#f2c6de","#f4acb7","#ffb5a7","#e6b8a2","#f2c6de","#e56b6f","#fec89a","#9a8c98"] 
+  
   nowYear 
   nowMonth
   months = []
@@ -40,7 +41,7 @@ export class StatisticsPage implements OnInit {
   formYear : FormGroup
 
 
-  constructor(private activatedRoute: ActivatedRoute,public activityService : ActivityService, public formBuilder : FormBuilder,public db: AngularFireDatabase) {
+  constructor(public router : Router ,private activatedRoute: ActivatedRoute,public activityService : ActivityService, public formBuilder : FormBuilder,public db: AngularFireDatabase) {
     this.nowYear = new Date().getFullYear()
     this.nowMonth = new Date().getMonth() +1
 
@@ -262,7 +263,7 @@ export class StatisticsPage implements OnInit {
       data: {
         labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jui', 'Juil', 'Aoû', 'Sept', 'Oct', 'Nov', 'Déc'],
         datasets: [{
-          label: ["Nombre d'heures totales par moi"],
+          label: ["Nombre d'heures totales par mois"],
           data: this.statisticsYear,
           backgroundColor: this.colorArray, // array should have same number of elements as number of dataset
           borderColor: this.colorArray,// array should have same number of elements as number of dataset
@@ -294,10 +295,10 @@ export class StatisticsPage implements OnInit {
       data: {
         labels: this.days,
         datasets: [{
-          label: ["Nombre d'heures totales par moi"],
+          label: ["Nombre d'heures par jours "],
           data: this.statisticsMonth,
-          backgroundColor: this.colorArray, // array should have same number of elements as number of dataset
-          borderColor: this.colorArray,// array should have same number of elements as number of dataset
+          backgroundColor: this.colorArrayColors, // array should have same number of elements as number of dataset
+          borderColor: this.colorArrayColors,// array should have same number of elements as number of dataset
           borderWidth: 1
         }]
       },
@@ -316,6 +317,6 @@ export class StatisticsPage implements OnInit {
   }
 
 
-
+ 
 
 }

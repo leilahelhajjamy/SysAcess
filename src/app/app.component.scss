@@ -10,7 +10,7 @@
       --background: transparent;
       --border-radius: 15px;
         max-width: 900px;
-        margin: auto;
+      margin: auto;
 
     }
 
@@ -80,6 +80,7 @@
       left: 0;
       right: 0;
       bottom: 0;
+      top: 20%;
       max-width: 900px;
       
     }
@@ -87,7 +88,10 @@
       --background: rgb(235, 171, 129);
 
     }
-  
+  .formUserAdd{
+    margin-top: 25%;
+
+  }
   
     form {
       margin-top: 7%;
@@ -114,7 +118,9 @@
       display: flex;
     }
 
-   
+    .centerDeconnexion{
+      margin-top: 25%;
+    }
 
     .input {
       display: block;
@@ -379,6 +385,7 @@ ion-item{
   .userName{
     color: #493838;
   } 
+
 }
 
 .buttonIcon{
@@ -388,6 +395,11 @@ ion-item{
   padding: auto;
   margin: auto;
   border-style: solid black;
+}
+
+
+ion-button{
+  background-color: #d17941;
 }
 
 ion-footer{
