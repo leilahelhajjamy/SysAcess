@@ -21,11 +21,13 @@
     "@angular/platform-browser-dynamic": "~11.2.0",
     "@angular/router": "~11.2.0",
     "@capacitor/core": "2.4.6",
+    "@ionic-native/core": "^5.31.1",
+    "@ionic-native/date-picker": "^5.31.1",
     "@ionic/angular": "^5.5.2",
     "chart.js": "^2.9.4",
     "cordova-android": "9.0.0",
     "firebase": "^8.2.9",
-    "ng2-search-filter": "^0.5.1",
+    "ng-search-filter": "^1.1.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
@@ -43,6 +45,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
+    "cordova-plugin-datepicker": "^0.9.3",
     "cordova-plugin-device": "2.0.2",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-ionic-webview": "^4.0.0",
@@ -72,7 +75,8 @@
       "cordova-plugin-ionic-webview": {
         "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
       },
-      "cordova-plugin-ionic-keyboard": {}
+      "cordova-plugin-ionic-keyboard": {},
+      "cordova-plugin-datepicker": {}
     },
     "platforms": [
       "android"

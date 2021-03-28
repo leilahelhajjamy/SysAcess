@@ -1,18 +1,33 @@
 <ion-footer>
   <ion-toolbar>
-  	<div class="tabs">
-			<ion-button [routerLink]="['/lastactivity/']" routerDirection="root" class="buttonIcon" fill="solid" color="orange">
-				<ion-icon   name="timer" color="warning" style="zoom:1.5"></ion-icon>
-			</ion-button>
-      <ion-button  [routerLink]="['/lastactivity/']" routerDirection="root" class="buttonIcon"  class="buttonIcon" fill="solid" color="jaune" >
-				<ion-icon name="archive" color="warning" style="zoom:1.5"></ion-icon>
-			</ion-button>
-      <ion-button [routerLink]="['/users/']" routerDirection="root" class="buttonIcon"  class="buttonIcon" fill="solid" color="jaune">
-				<ion-icon name="people" color="warning" style="zoom:1.5"></ion-icon>
-			</ion-button>
-		<ion-button [routerLink]="['/signout/']" routerDirection="root" class="buttonIcon"  class="buttonIcon" fill="solid" color="jaune">
-			<ion-icon name="log-out" color="warning" style="zoom:1.5"></ion-icon> 
-		</ion-button>
-	</div>
+    <div class="tabs">
+      <ion-button
+        [routerLink]="['/users/']"
+        routerDirection="root"
+        class="buttonIcon"
+        fill="solid"
+        color="jaune"
+      >
+        <ion-icon name="people" color="warning" style="zoom: 1.5"></ion-icon>
+      </ion-button>
+      <ion-button class="buttonIcon" color="jaune">
+        <img
+          alt="logo"
+          height="60"
+          width="110"
+          src="../../assets/icon/logo.png"
+        />
+      </ion-button>
+
+      <ion-button
+        [routerLink]="['/signout/']"
+        routerDirection="root"
+        class="buttonIcon"
+        fill="solid"
+        color="jaune"
+      >
+        <ion-icon name="log-out" color="warning" style="zoom: 1.5"></ion-icon>
+      </ion-button>
+    </div>
   </ion-toolbar>
 </ion-footer>

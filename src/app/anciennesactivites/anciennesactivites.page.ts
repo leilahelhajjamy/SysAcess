@@ -25,6 +25,7 @@ export class AnciennesactivitesPage implements OnInit {
   formMonth
   
   
+
   constructor(public formBuilder : FormBuilder,public activityService : ActivityService,public router : Router ,public alertController: AlertController,private activatedRoute: ActivatedRoute) 
   { 
 
@@ -58,6 +59,7 @@ export class AnciennesactivitesPage implements OnInit {
     this.carteId = this.activatedRoute.snapshot.paramMap.get('carteId');
     this.nom = this.activatedRoute.snapshot.paramMap.get('nom');
     this.prenom = this.activatedRoute.snapshot.paramMap.get('prenom');
+
     for(let i=1; i < this.nowMonth ;i++){
       this.months.push(this.nowYear.toString() +"-0"+ i.toString().toString())
       
@@ -68,6 +70,7 @@ export class AnciennesactivitesPage implements OnInit {
     })
 
   }
+
 
 
 
@@ -115,6 +118,8 @@ export class AnciennesactivitesPage implements OnInit {
 
 
   }
+
+
 
 
 

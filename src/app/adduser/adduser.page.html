@@ -1,56 +1,71 @@
-<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+<link
+  href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
 
 <ion-header class="ion-no-border">
-	<ion-toolbar>
+  <ion-toolbar>
     <div class="back-circle"></div>
-		<ion-title class="ion-text-center custom-font">Ajouter</ion-title>
-	</ion-toolbar>
+    <ion-title class="ion-text-center custom-font">Ajouter</ion-title>
+  </ion-toolbar>
 </ion-header>
 
-
 <ion-content fullscreen="true" class="ion-padding">
+  <form [formGroup]="formUserAdd">
+    <div class="wrap-inputUseradd">
+      <input
+        class="input"
+        type="text"
+        formControlName="nom"
+        [(ngModel)]="nom"
+        placeholder="Nom"
+      />
+    </div>
 
-  <svg class="back-blob"  viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-    <path fill="#EBAB81" d="M14,-22.4C22.6,-13,37.1,-14.9,38.4,-12.2C39.7,-9.5,27.7,-2.2,20.6,2.7C13.5,7.5,11.3,10,8.6,22.2C6,34.3,3,56.2,-0.5,56.9C-4,57.6,-8,37,-12.1,25.4C-16.3,13.7,-20.5,10.9,-32.8,3.5C-45.1,-3.9,-65.4,-15.9,-68.2,-26.8C-71,-37.7,-56.4,-47.6,-42.1,-55.2C-27.8,-62.8,-13.9,-68.2,-5.6,-60.5C2.7,-52.7,5.4,-31.9,14,-22.4Z" transform="translate(100 100)" />
-  </svg>
- 
+    <div class="wrap-inputUseradd">
+      <input
+        class="input"
+        type="text"
+        formControlName="prenom"
+        [(ngModel)]="prenom"
+        placeholder="Prénom"
+      />
+    </div>
 
-    <form [formGroup]="formUserAdd" >
-  
-      <div class=" wrap-inputUseradd">
-      <input class="input" type="text"  formControlName="nom" [(ngModel)]="nom" placeholder="Nom">
-      </div>
-  
-      <div class=" wrap-inputUseradd">
-      <input class="input" type="text" formControlName="prenom" [(ngModel)]="prenom" placeholder="Prénom">
-      </div>
+    <div class="wrap-inputUseradd">
+      <input
+        class="input"
+        type="text"
+        formControlName="carteId"
+        [(ngModel)]="carteId"
+        placeholder="ID Carte"
+      />
+    </div>
 
-      <div class="wrap-inputUseradd">
-        <input class="input" type="text" formControlName="carteId" [(ngModel)]="carteId" placeholder="ID Carte">
-      </div>
+    <div class="wrap-inputUseradd">
+      <input
+        class="input"
+        type="text"
+        formControlName="poste"
+        [(ngModel)]="poste"
+        placeholder="Poste"
+      />
+    </div>
 
-      <div class="wrap-inputUseradd">
-        <input class="input" type="text"  formControlName="poste" [(ngModel)]="poste" placeholder="Poste">
-      </div>
+    <ion-item class="wrap-inputUseradd">
+      <ion-label>Autorisé</ion-label>
+      <ion-toggle
+        checked
+        color="warning"
+        formControlName="autorised"
+        [(ngModel)]="autorised"
+        checked="{{checkedState}}"
+      ></ion-toggle>
+    </ion-item>
 
-
-  
-      <ion-item class=" wrap-inputUseradd ">
-        <ion-label>Autorisé</ion-label>
-        <ion-toggle checked color="warning" formControlName="autorised" [(ngModel)]="autorised" checked="{{checkedState}}" ></ion-toggle>
-      </ion-item>
-    
-
-      <div class="container-form-btn">
-        
-        <button class="form-btn custom-font" (click)="ajouter()">
-        Ajouter
-        </button>
-      </div>   
-  
-     
-    </form>
-   
-
+    <div class="container-form-btn">
+      <button class="form-btn custom-font" (click)="ajouter()">Ajouter</button>
+    </div>
+  </form>
 </ion-content>
 <app-tabscomponent></app-tabscomponent>

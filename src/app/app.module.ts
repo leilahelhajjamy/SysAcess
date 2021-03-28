@@ -9,6 +9,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DatePicker } from '@ionic-native/date-picker/ngx';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBgN5HXli1TiiCZney2RV25spifnhLbac0",
@@ -28,8 +29,9 @@ const firebaseConfig = {
     AngularFireAuthModule, // auth
     AngularFireStorageModule ,// storage,
    
+   
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [DatePicker,{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

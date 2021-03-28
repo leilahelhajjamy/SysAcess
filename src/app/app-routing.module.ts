@@ -72,7 +72,17 @@ const routes: Routes = [
     path: 'anciennesactivites/:carteId/:nom/:prenom',
     loadChildren: () => import('./anciennesactivites/anciennesactivites.module').then( m => m.AnciennesactivitesPageModule),
     canActivate : [AuthguardService]
-  }
+  },  {
+    path: 'statistic-moi-modal',
+    loadChildren: () => import('./statistic-moi-modal/statistic-moi-modal.module').then( m => m.StatisticMoiModalPageModule)
+  },
+  {
+    path: 'statistic-annee-modal',
+    loadChildren: () => import('./statistic-annee-modal/statistic-annee-modal.module').then( m => m.StatisticAnneeModalPageModule)
+  },
+
+  
+
 
 
 

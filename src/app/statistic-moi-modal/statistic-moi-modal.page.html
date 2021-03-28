@@ -1,0 +1,31 @@
+<link
+  href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
+
+<ion-content fullscreen="true" class="ion-padding">
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="dismiss()" color="warning" id="btnProceed">
+      <ion-icon name="close-circle-outline" color="light"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-card class="transparentOrange">
+    <ion-card-header>
+      <ion-card-subtitle></ion-card-subtitle>
+      <ion-card-title>Statistiques du moi {{moi}}</ion-card-title>
+      <ion-card-subtitle
+        >Nombre d'heures totales {{nbreHeuresMoi}}
+      </ion-card-subtitle>
+      <ion-card-subtitle>
+        Jours moins de huit heures de travail
+        {{nbreJoursMoinsHuit}}</ion-card-subtitle
+      >
+      <ion-card-subtitle>
+        Nombre de jours d'abscence {{nbreJoursAbscence}}</ion-card-subtitle
+      >
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #barChartMonth></canvas>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

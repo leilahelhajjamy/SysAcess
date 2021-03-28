@@ -1,127 +1,109 @@
-<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+<link
+  href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
 
 <ion-content fullscreen="true" class="ion-padding">
+  <div class="transparentWrapper">
+    <div class="cardPass">
+      <img alt="logo" height="60" width="90" src="../../assets/card.png" />
+      <h5 class="">{{carteId}}</h5>
+      <h5 class="profileName custom-font">{{prenom}} {{nom | uppercase}}</h5>
+    </div>
+  </div>
 
-
-  <div class="transparentWrapper ">     
-    <h5 class="profileName ion-text-center custom-font">  {{prenom}} {{nom | uppercase}}</h5>
-  </div> 
-
-      <ion-card class="transparentOrange">
-        <ion-card-header>
-          <ion-card-subtitle></ion-card-subtitle>
-          <ion-card-title> Statistiques de l'année courante </ion-card-title>
-          <ion-card-subtitle>Nombre d'heures totales pendant l'année courante {{NumberOfHoursYear}}</ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-          <canvas #barChart></canvas>
-        </ion-card-content>
-      </ion-card>
-    
-
-      <ion-card class="transparentOrange">
-        <ion-card-header>
-          <ion-card-subtitle></ion-card-subtitle>
-          <ion-card-title>Statistiques du moi courant  </ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <canvas #barChartMonth></canvas>
-        </ion-card-content>
-      </ion-card>
-
-
-        <div class="transparent">
-          
-       <!-- <ion-grid>
-
-          <ion-row>
-            <ion-col >
-             
-
-              <div *ngIf="NumberOfHoursMonth==null">
-                                    
-                  <ion-item class="transparentDiv currentMonth">
-                    <ion-thumbnail slot="start">
-                      <ion-skeleton-text animated></ion-skeleton-text>
-                    </ion-thumbnail>
-                    <ion-label>
-                      <h3>
-                        <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
-                      </h3>
-                      <p>
-                        <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
-                      </p>
-                      <p>
-                        <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
-                      </p>
-                    </ion-label>
-                  </ion-item>                    
-               
-              </div>
-
-
-              <div *ngIf="NumberOfHoursMonth" class="currentMonth">
-                <h2 class="titleStatistics">Ce moi</h2>
-                <h5 class="currentMonthHours">{{NumberOfHoursMonth}}<SUB>heures</SUB></h5>
-                  
-              </div>
-            </ion-col>
-          
-
-
-
-            <ion-col >
-             
-              
-
-              <div *ngIf="NumberOfHoursYear==null">
-                               
-                  <ion-item class="transparentDiv currentYear" >
-                    <ion-thumbnail slot="start">
-                      <ion-skeleton-text animated></ion-skeleton-text>
-                    </ion-thumbnail>
-                    <ion-label>
-                      <h3>
-                        <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
-                      </h3>
-                      <p>
-                        <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
-                      </p>
-                      <p>
-                        <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
-                      </p>
-                    </ion-label>
-                  </ion-item>                    
-               
-              </div>
-
-
-              <div *ngIf="NumberOfHoursYear" class="currentYear">
-                <h2 class="titleStatistics">Cette année</h2>
-                <h5 class="currentYearHours">{{NumberOfHoursYear}}<SUB>heures</SUB></h5>
-                            
-              </div>
-            </ion-col>
-          </ion-row>
-
-        </ion-grid>-->
-      </div> 
-
-                     
-
- <!-- <form class="ion-padding"[formGroup]="formYear" >                                                                     
+  <form [formGroup]="formMonth">
     <ion-item class="transparentDiv">
-      <ion-label position="stacked">Sélectionner un moi</ion-label>
-      <ion-datetime  [pickerOptions]="PickerOptions" doneText="Confirmer" cancelText="Annuler" displayFormat="YYYY" min="2018" max={{nowYear}} value="" formControlName="year" [(ngModel)]="year" ></ion-datetime>
+      <ion-label>
+        <ion-icon name="caret-down-outline" color="item"></ion-icon>Sélectionner
+        un moi
+      </ion-label>
+      <ion-select
+        [(ngModel)]="monthChoisi"
+        formControlName="monthChoisi"
+        value=""
+        okText="Okay"
+        cancelText="Dismiss"
+        interface="popover"
+        class="custom-options"
+        (ngModelChange)="onChange($event)"
+      >
+        <ion-select-option *ngFor="let month of monthss " value="{{month}}">
+          {{month}}</ion-select-option
+        >
+      </ion-select>
     </ion-item>
-
-  <div class="container-form-btn">
-    
-    <button class="form-btn custom-font" (click)="getStatisticsYear(year)">
-    Statistiques
-    </button>
-  </div>                       
-</form> --> 
-
+  </form>
+  <ion-card class="transparentOrange">
+    <ion-card-header>
+      <ion-card-subtitle></ion-card-subtitle>
+      <ion-card-title>Statistiques du moi courant </ion-card-title>
+      <ion-card-subtitle
+        >Nombre d'heures totales pendant le moi courant<ion-icon
+          name="timer-sharp"
+        ></ion-icon>
+        {{NumberOfHoursMonth}}</ion-card-subtitle
+      >
+      <ion-card-subtitle>
+        Jours moins de huit heures de travail
+        <ion-icon name="timer-sharp"></ion-icon>
+        {{MoinsHuitMois}}</ion-card-subtitle
+      >
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #barChartMonth></canvas>
+    </ion-card-content>
+  </ion-card>
+  <form [formGroup]="formYear">
+    <ion-item class="transparentDiv">
+      <ion-label>
+        <ion-icon name="caret-down-outline" color="item"></ion-icon>Sélectionner
+        une année
+      </ion-label>
+      <ion-select
+        [(ngModel)]="anneeChoisie"
+        formControlName="anneeChoisie"
+        value=""
+        okText="Okay"
+        cancelText="Dismiss"
+        interface="popover"
+        class="custom-options"
+        (ngModelChange)="onChangeAnnee($event)"
+      >
+        <ion-select-option value="{{anneeActuelle -1}}">
+          {{anneeActuelle - 1}}</ion-select-option
+        >
+        <ion-select-option value="{{anneeActuelle -2}}">
+          {{anneeActuelle-2}}</ion-select-option
+        >
+        <ion-select-option value="{{anneeActuelle -3}}"
+          >{{anneeActuelle-3}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </form>
+  <ion-card class="transparentOrange">
+    <ion-card-header>
+      <ion-card-subtitle></ion-card-subtitle>
+      <ion-card-title> Statistiques de l'année courante </ion-card-title>
+      <ion-card-subtitle
+        >Nombre d'heures totales pendant l'année courante<ion-icon
+          name="timer-sharp"
+        ></ion-icon>
+        {{NumberOfHoursYear}}</ion-card-subtitle
+      >
+      <ion-card-subtitle
+        >Moyenne d'heures par moi<ion-icon name="timer-sharp"></ion-icon>
+        {{MoyenneMois}}</ion-card-subtitle
+      >
+      <ion-card-subtitle
+        >Moyenne d'heures par semaine<ion-icon name="timer-sharp"></ion-icon>
+        {{MoyenneSemaine}}</ion-card-subtitle
+      >
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #barChart></canvas>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
 <app-tabscomponent></app-tabscomponent>

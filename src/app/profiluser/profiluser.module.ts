@@ -3,9 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TabscomponentPageModule } from '../tabscomponent/tabscomponent.module';
 import { IonicModule } from '@ionic/angular';
-
 import { ProfiluserPageRoutingModule } from './profiluser-routing.module';
-
 import { ProfiluserPage } from './profiluser.page';
 
 @NgModule({
@@ -16,7 +14,10 @@ import { ProfiluserPage } from './profiluser.page';
     ProfiluserPageRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    TabscomponentPageModule
+    TabscomponentPageModule,
+  
+   
+
   ],
   declarations: [ProfiluserPage]
 })

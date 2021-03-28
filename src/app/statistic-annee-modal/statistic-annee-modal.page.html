@@ -1,0 +1,30 @@
+<link
+  href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
+
+<ion-content fullscreen="true" class="ion-padding">
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="dismiss()" color="warning" id="btnProceed">
+      <ion-icon name="close-circle-outline" color="light"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-card class="transparentOrange">
+    <ion-card-header>
+      <ion-card-subtitle></ion-card-subtitle>
+      <ion-card-title>Statistiques de l'année {{annee}}</ion-card-title>
+      <ion-card-subtitle
+        >Nombre d'heures totales{{NbreHeuresAnnee}}
+      </ion-card-subtitle>
+      <ion-card-subtitle>
+        Moyenne d'heures par moi {{MoyenneMois}}
+      </ion-card-subtitle>
+      <ion-card-subtitle>
+        Moyenne d'heures par semaine {{MoyenneSemaine}}
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #barChart></canvas>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

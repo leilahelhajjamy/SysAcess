@@ -1,67 +1,73 @@
-<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+<link
+  href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
 
 <ion-header class="ion-no-border">
   <ion-toolbar>
-  
     <ion-searchbar
-    showcancelbutton=""
-    (change)="filterList($event)"
-    (ionInput)="filterList($event)"
-    (ionClear)="onCancel()"
-    (ionChange)="filterList($event)"
-    animated="true"
-  ></ion-searchbar>
-
+      showcancelbutton=""
+      (change)="filterList($event)"
+      (ionInput)="filterList($event)"
+      (ionClear)="onCancel()"
+      (ionChange)="filterList($event)"
+      animated="true"
+    ></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen="true" class="ion-padding">
-
-  <svg class="back-blob"  viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-    <path fill="#EBAB81" d="M14,-22.4C22.6,-13,37.1,-14.9,38.4,-12.2C39.7,-9.5,27.7,-2.2,20.6,2.7C13.5,7.5,11.3,10,8.6,22.2C6,34.3,3,56.2,-0.5,56.9C-4,57.6,-8,37,-12.1,25.4C-16.3,13.7,-20.5,10.9,-32.8,3.5C-45.1,-3.9,-65.4,-15.9,-68.2,-26.8C-71,-37.7,-56.4,-47.6,-42.1,-55.2C-27.8,-62.8,-13.9,-68.2,-5.6,-60.5C2.7,-52.7,5.4,-31.9,14,-22.4Z" transform="translate(100 100)" />
-  </svg>
- 
-
-    <ion-item *ngFor="let user of Users " class=" glassDivAdd" >
+<ion-content fullscreen="true">
+  <div class="modalDiv">
+    <ion-item *ngFor="let user of Users " class="glassDivAdd">
       <ion-label>
-       <h5 class="userName">
-          <ion-icon name="person"></ion-icon> <a class="linkUnderlined" (click)='profileUser(user.carteId)'><strong>{{user.prenom}} {{user.nom | uppercase}}</strong></a>
+        <h5 class="userName">
+          <ion-icon name="person"></ion-icon>
+          <a class="linkUnderlined" (click)="profileUser(user.carteId)"
+            ><strong>{{user.prenom}} {{user.nom | uppercase}}</strong></a
+          >
         </h5>
+        <p><ion-icon name="briefcase"></ion-icon> {{user.poste}}</p>
         <p>
-          <ion-icon name="briefcase"></ion-icon> {{user.poste}}
-        </p>
-        <p>
-          <ion-toggle checked color="warning" (ionChange)="modifierAuthorised(user.carteId,user.authorised)" checked="{{user.authorised}}" ></ion-toggle>
+          <ion-toggle
+            checked
+            color="warning"
+            (ionChange)="modifierAuthorised(user.carteId,user.authorised)"
+            checked="{{user.authorised}}"
+          ></ion-toggle>
         </p>
       </ion-label>
-      
+
       <div class="item-note" item-end>
-      <p>
-        <button class="buttonIcon" clear (click)='profileUser(user.carteId)'>
-          <ion-icon name="create" color='warning' style="zoom:1.75"></ion-icon>
-        </button>
-      </p>
-      <p>
-        <button class="buttonIcon" clear (click)="supprimerUser(user.carteId)">
-          <ion-icon name="trash"  color='warning' style="zoom:1.75"></ion-icon>
-        </button>
-      </p>  
+        <p>
+          <button class="buttonIcon" clear (click)="profileUser(user.carteId)">
+            <ion-icon
+              name="create"
+              color="warning"
+              style="zoom: 1.75"
+            ></ion-icon>
+          </button>
+        </p>
+        <p>
+          <button
+            class="buttonIcon"
+            clear
+            (click)="supprimerUser(user.carteId)"
+          >
+            <ion-icon
+              name="trash"
+              color="warning"
+              style="zoom: 1.75"
+            ></ion-icon>
+          </button>
+        </p>
       </div>
     </ion-item>
- 
+  </div>
 
-
-
-    <ion-fab vertical="bottom" horizontal="center" slot="fixed" >
-      <ion-fab-button (click)="adduserPage()" color="warning" id="btnProceed">
-        <ion-icon name="add"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
-
-
-
-  
-
-
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="warning" (click)="adduserPage()" id="btnProceed">
+      <ion-icon name="add" color="light"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
 <app-tabscomponent></app-tabscomponent>

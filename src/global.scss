@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -25,66 +25,59 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+.my-alert-class {
+  .alert-wrapper {
+    background: #efcb68;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-justify: center;
+    color: black;
+    font-size: 18px;
+  }
 
-.my-alert-class{
-
-    .alert-wrapper {
-        background: #EBAB81;
-        border-radius: 10px;
-        margin-left: auto;
-        margin-right:auto ;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-justify: center;
-        color: black;
-        font-size: 18px;
-      }
-
-    .my-button-alert{
-      background-color: #d17941;
-      border-radius: 10px;
-      font-size: 14px;
-      color: #FFFFFF;
-      text-transform: uppercase;
-      padding-top: 5px;
-      transition: all 0.4s;
-      box-shadow: 0 10px 30px 0px rgba(57, 71, 82, 0.5); 
-    }
+  .my-button-alert {
+    background-color: #160c28;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #ffffff;
+    text-transform: uppercase;
+    padding-top: 5px;
+    transition: all 0.4s;
+    box-shadow: 0 10px 30px 0px rgba(57, 71, 82, 0.5);
+  }
 }
 
-
-.MyDatePicker{
-  --background: #EBAB81 ;
-  --border-radius : 15px;
-  --max-height :250px;
-  --max-width:400px;
-  --border-color :#d8e2dc;
-
-
+.MyDatePicker {
+  --background: #ebab81;
+  --border-radius: 15px;
+  --max-height: 250px;
+  --max-width: 400px;
+  --border-color: #d8e2dc;
 }
 
-
-.MyDatePickerYear{
-  --background: #EBAB81 ;
-  --border-radius : 15px;
-  --max-height :200px;
-  --max-width:200px;
-  --border-color :#d8e2dc;
-
+.MyDatePickerYear {
+  --background: #ebab81;
+  --border-radius: 15px;
+  --max-height: 200px;
+  --max-width: 200px;
+  --border-color: #d8e2dc;
 }
 
-  .custom-options {
-    
-    .select-interface-option{
+.my-modal-class .modal-wrapper {
+  --background: #222;
+  --height: 72% !important;
+  border-radius: 35px;
+  margin-top: 50%;
+  width: 100%;
+}
+
+.custom-options {
+  .select-interface-option {
     --color: rgb(245, 215, 196);
-    --color-hover:rgb(245, 215, 196);
-  
-
-                  }
-   
-              }
-
-
-
-
+    --color-hover: rgb(245, 215, 196);
+  }
+}

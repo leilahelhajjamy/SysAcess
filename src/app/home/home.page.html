@@ -1,44 +1,52 @@
-<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+<link
+  href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
 
 <ion-header class="ion-no-border">
-	<ion-toolbar>
+  <ion-toolbar>
     <div class="back-circle"></div>
-		<ion-title class="ion-text-center custom-font">Connexion</ion-title>
-	</ion-toolbar>
+    <ion-title class="ion-text-center custom-font">Connexion</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content fullscreen="true">
+  <img class="back-blob" src="../../assets/icon/logo.png" />
+  <div class="ion-padding">
+    <form [formGroup]="formLogin" class="formUserAdd">
+      <div class="wrap-inputUseradd">
+        <input
+          class="input"
+          type="text"
+          formControlName="email"
+          [(ngModel)]="email"
+          placeholder="Email"
+        />
+      </div>
 
-  <svg class="back-blob" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-    <path fill="#EBAB81" d="M33.7,-59.7C42,-53.6,45.9,-41.2,46.3,-30.2C46.7,-19.2,43.5,-9.6,41,-1.4C38.5,6.7,36.7,13.4,36.1,24.1C35.5,34.7,36.2,49.3,30.4,53.6C24.6,58,12.3,52.2,2.2,48.4C-7.9,44.6,-15.8,42.9,-21.3,38.3C-26.8,33.7,-29.8,26.3,-40.5,19.5C-51.2,12.6,-69.5,6.3,-70.9,-0.8C-72.2,-7.8,-56.5,-15.7,-45.3,-21.7C-34,-27.6,-27.4,-31.7,-20.6,-38.7C-13.8,-45.7,-6.9,-55.5,2.9,-60.5C12.7,-65.5,25.4,-65.8,33.7,-59.7Z" transform="translate(100 100)" />
-  </svg>
+      <div class="wrap-inputUseradd">
+        <input
+          class="input"
+          type="password"
+          formControlName="password"
+          [(ngModel)]="password"
+          placeholder="Mot de passe"
+        />
+      </div>
 
-<div class="ion-padding">
+      <div class="container-form-btn">
+        <button class="form-btn custom-font" (click)="login(email,password)">
+          Se connecter
+        </button>
+      </div>
 
-  <form  [formGroup]="formLogin" class="formUserAdd">
-
-    <div class="  wrap-inputUseradd">
-    <input class="input" type="text" formControlName="email" [(ngModel)]="email" placeholder="Email">
-    </div>
-
-    <div class=" wrap-inputUseradd">
-    <input class="input" type="password" formControlName="password" [(ngModel)]="password" placeholder="Mot de passe">
-    </div>
-
-    
-    <div class="container-form-btn">
-      <button class="form-btn custom-font" (click)="login(email,password)">
-      Se connecter
-      </button>
-    </div>   
-
-    <p class="ion-text-center custom-font">Mot de passe oublié ?<a class="linkUnderlined" (click)="forgotPassword()">Mettre à jour</a></p>
-    
-  </form>
-
-</div>
-
+      <p class="ion-text-center custom-font">
+        Mot de passe oublié ?<a
+          class="linkUnderlined"
+          (click)="forgotPassword()"
+          >Mettre à jour</a
+        >
+      </p>
+    </form>
+  </div>
 </ion-content>
-
-
-
