@@ -441,10 +441,6 @@ export class ProfiluserPage implements OnInit {
     this.router.navigate(['/statistics', carteId, nom, prenom]);
   }
 
-  AnciennesActivitesPage(carteId, nom, prenom) {
-    this.router.navigate(['anciennesactivites', carteId, nom, prenom]);
-  }
-
   onChange(evt) {
     this.moiSelectionne = evt;
     console.log(new Date(this.moiSelectionne));

@@ -6,6 +6,7 @@ import { UsersPageRoutingModule } from './users-routing.module';
 
 import { UsersPage } from './users.page';
 import { TabscomponentPageModule } from '../tabscomponent/tabscomponent.module';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -13,8 +14,8 @@ import { TabscomponentPageModule } from '../tabscomponent/tabscomponent.module';
     ReactiveFormsModule,
     IonicModule,
     UsersPageRoutingModule,
-    TabscomponentPageModule
+    TabscomponentPageModule,
   ],
-  declarations: [UsersPage]
+  declarations: [UsersPage],
 })
 export class UsersPageModule {}

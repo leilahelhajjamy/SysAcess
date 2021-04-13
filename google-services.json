@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "879760335132",
+    "firebase_url": "https://sysaccess-ecf6b-default-rtdb.firebaseio.com",
+    "project_id": "sysaccess-ecf6b",
+    "storage_bucket": "sysaccess-ecf6b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:879760335132:android:da6cbbcf3941d97235dad9",
+        "android_client_info": {
+          "package_name": "io.ionic.starter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "879760335132-orfrbpfuj5uodjsm5bh4o46egnjker2r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeAjoGj8yroNdtOCwj7Xbf3aYjsgV2910"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "879760335132-orfrbpfuj5uodjsm5bh4o46egnjker2r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

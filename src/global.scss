@@ -70,7 +70,8 @@
 .my-modal-class .modal-wrapper {
   --background: #222;
   --height: 72% !important;
-  border-radius: 35px;
+  border-top-left-radius: 35px;
+  border-top-right-radius: 35px;
   margin-top: 50%;
   width: 100%;
 }
