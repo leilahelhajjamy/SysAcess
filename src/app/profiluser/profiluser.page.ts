@@ -320,7 +320,7 @@ export class ProfiluserPage implements OnInit {
 
   async modifierPoste() {
     if (this.poste != null) {
-      if (/^[a-zA-Z ]*$/.test(this.poste) == false) {
+      if (/^[A-zÀ-ú]*$/.test(this.poste) == false) {
         this.toast(this.messagePoste);
       } else {
         this.userService.modifierPoste(this.carteId, this.poste);
@@ -333,7 +333,7 @@ export class ProfiluserPage implements OnInit {
   }
   async modifierPrenom() {
     if (this.prenom != null) {
-      if (/^[a-zA-Z ]*$/.test(this.prenom) == false) {
+      if (/^[A-zÀ-ú] ]*$/.test(this.prenom) == false) {
         this.toast(this.messagePrenom);
       } else {
         this.userService.modifierPrenom(this.carteId, this.prenom);
@@ -346,7 +346,7 @@ export class ProfiluserPage implements OnInit {
   }
   async modifierNom() {
     if (this.nom!) {
-      if (/^[a-zA-Z ]*$/.test(this.nom) == false) {
+      if (/^[A-zÀ-ú] ]*$/.test(this.nom) == false) {
         this.toast(this.messageNom);
       } else {
         this.userService.modifierNom(this.carteId, this.nom);
